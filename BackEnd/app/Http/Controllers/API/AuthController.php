@@ -10,8 +10,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\UserResource;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
+
 
 class AuthController extends BaseController
 {
@@ -30,40 +31,58 @@ class AuthController extends BaseController
 
     public function register(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
-            'firstname' => 'required',
-            'lastname' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
+            'firstname' => 'required|string|min:4|max:12',
+            'lastname' => 'required|string|min:4|max:12',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6',
             'c_password' => 'required|same:password',
-            'username' => 'required'
         ]);
 
-
         if ($validator->fails()) {
-            return $this->sendError('Validation Error.', $validator->errors());
+            return response()->json(['error' => $validator->errors()], 400);
         }
 
-       
+        $validatedUser = $validator->validated();
+        Session::put('validateduser', $validatedUser);
 
-        $input = $request->all();
+        return response()->json(['validateduser' => $validatedUser], 200);
+    }
 
-        $input['password'] = Hash::make($input['password']);
+    public function setOrganisator()
+    {
+        $user = Session::get('validateduser');
+        $randomStr = Str::random(6);
 
+        $user['role_id'] = 2;
+        $user['password'] = Hash::make($user['password']);
+        $user['username'] = strtolower($user['firstname'] . $randomStr);
 
-        $user = User::create($input);
+        return $user;
 
-        $worker_role = Role::where('name', 'worker')->first();
+        User::create($user);
 
-        if($worker_role)
-        {
-            $user->assignRole($worker_role);
-        }
+        Session::forget('validateduser');
+        return response()->json(['message' => 'Organisator created successfully'], 201);
+    }
 
-        // $success['token'] =  $user->createToken('MyApp')->plainTextToken;
-        $success['firstname'] =  $user->firstname;
-        return $this->sendResponse($success, 'User register successfully.');
+    public function setParticipant(Request $request)
+    {
+
+        $userData = $request->only(['firstname', 'lastname', 'email', 'password']);
+        
+        // $user = Session::get('validateduser');
+        $randomStr = Str::random(6);
+
+        $user['role_id'] = 3;
+        $user['username'] = strtolower($user['lastname'] . $randomStr);
+
+        return $user;
+
+        User::create($user);
+
+        Session::forget('validateduser');
+        return response()->json(['message' => 'Participant created successfully'], 201);
     }
 
     /**
@@ -95,7 +114,6 @@ class AuthController extends BaseController
 
 
             return $this->sendResponse([], 'User logout successfully.');
-
         } else {
             return $this->sendError('Unauthenticated.', ['error' => 'Unauthenticated']);
         }
