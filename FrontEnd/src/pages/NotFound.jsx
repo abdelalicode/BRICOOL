@@ -1,36 +1,23 @@
 import React from "react";
-import "../../src/App.css"
+import "../../src/App.css";
 import { Link } from "react-router-dom";
 
 export default function NotFound() {
-    return (
-        <div>
-            <section className="page_404">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-sm-12 ">
-                            <div className="col-sm-10 col-sm-offset-1  text-center">
-                                <div className="four_zero_four_bg">
-                                    <h1 className="text-center ">404</h1>
-                                </div>
-
-                                <div className="contant_box_404">
-                                    <h3 className="h2">Look like you're lost</h3>
-
-                                    <p>
-                                        the page you are looking for not
-                                        avaible!
-                                    </p>
-
-                                    <Link to="/" className="link_404">
-                                        Go to Home
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+  return (
+    <div>
+      <div class="container flex flex-col items-center mt-24">
+        <div class="flex flex-col gap-6 max-w-md text-center">
+          <h2 class="font-extrabold text-9xl text-gray-600 dark:text-gray-100">
+            <span class="sr-only">Error</span>404
+          </h2>
+          <p class="text-2xl md:text-3xl dark:text-gray-300">
+            Sorry, we couldn't find this page.
+          </p>
+          <Link to="/" className="link_404">
+            Go to Home
+          </Link>
         </div>
-    );
+      </div>
+    </div>
+  );
 }

@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useUserContext } from "../../context/UserContext";
 
-export default function () {
+export default function ({logout}) {
+  const context = useUserContext();
+
   return (
     <div>
       <nav className="bg-[#D9D9D9] bg-opacity-50 border-gray-200 dark:bg-gray-900 px-4">
@@ -52,9 +55,24 @@ export default function () {
               className="w-full  md:w-auto -my-4 pl-48 sm:pl-0"
               id="navbar-default"
             >
-              <button className="h-full  bg-white p-[17px] text-sm">
-                REQUEST A JOB
-              </button>
+              {context.authenticated ? (
+                <div>
+                  <Link to="/requestjob">
+                    <button className="h-full  bg-white p-[17px] text-sm">
+                      REQUEST A JOB
+                    </button>
+                  </Link>
+                    <button onClick={logout} className="h-full  bg-transparent p-[17px] text-sm">
+                      LOGOUT
+                    </button>
+                </div>
+              ) : (
+                <Link to="/login">
+                  <button className="h-full  bg-white p-[17px] text-sm">
+                    LOGIN
+                  </button>
+                </Link>
+              )}
             </div>
           </div>
         </div>

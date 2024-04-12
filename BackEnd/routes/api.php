@@ -26,7 +26,3 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->post('logout', [AuthController::class, 'logout']);
 Route::put('update', [AuthController::class, 'updateProfile']);
-
-Route::middleware('auth:sanctum')->post('transfer', [TransationController::class, 'transfer']);
-Route::middleware('auth:sanctum')->get('senttrans', [TransationController::class, 'getSTransactions']);
-Route::middleware('auth:sanctum')->get('receivedtrans', [TransationController::class, 'getRTransactions']);

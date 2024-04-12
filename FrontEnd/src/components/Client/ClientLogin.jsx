@@ -15,7 +15,6 @@ import { Input } from "@/components/ui/input";
 import { axiosClient } from "../../api/axios";
 import { useNavigate } from "react-router";
 import { ADMINHOME, HOME } from "./../../router/index";
-import { useTransactionContext } from "../../context/TransactionContext";
 import { useUserContext } from "../../context/UserContext";
 
 const formSchema = z.object({
@@ -31,7 +30,7 @@ export default function ClientLogin() {
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            email: "abdeltaha@gmail.com",
+            email: "abdelali@gmail.com",
             password: "123456789",
         },
     });
@@ -45,7 +44,7 @@ export default function ClientLogin() {
                 
                 if (value.status === 200) {
                     setAuthenticated(true);
-                    if(value.data.data.user.role_id === 2)
+                    if(value.data.data.user.role_id === 3)
                     {
                         navigate(HOME);
                     }
@@ -69,7 +68,7 @@ export default function ClientLogin() {
 
     return (
         <div className="mt-24 mx-96 space-y-4">
-            <h1 className="font-semibold text-3xl">CLIENT LOGIN</h1>
+            <h1 className="font-semibold text-3xl">LOGIN FORM</h1>
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
