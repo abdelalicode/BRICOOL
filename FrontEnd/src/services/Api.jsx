@@ -15,6 +15,10 @@ const Api = {
         return  await axiosClient.post("api/login", {email, password})
     },
 
+    signup : async (firstname, lastname, email, password , c_password) => {
+        return  await axiosClient.post("api/register", {firstname, lastname, email, password , c_password})
+    }, 
+
     logout : async () => {
         return  await axiosClient.post("logout")
     },

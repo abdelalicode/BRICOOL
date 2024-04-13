@@ -54,7 +54,7 @@ export default function ClientHomeLayout() {
   const logout = async () => {
     Api.logout().then(() => {
       contextLogout();
-      navigate(LOGIN);
+      navigate(HOME);
     });
   };
 
@@ -63,7 +63,7 @@ export default function ClientHomeLayout() {
       <header>
         <NavTop/>
         
-        <NavBottom/>
+        <NavBottom logout = {logout}/>
       </header>
       <main>
         <Outlet />

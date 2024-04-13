@@ -15,6 +15,7 @@ export const  UserStateContext = createContext({
     authenticated : false, 
     logout: ()=>{},
     login: (email, password) => {},
+    signup: (firstname, lastname, email, password , c_password) => {},
     setAuthenticated: () => {}
 })
 
@@ -22,19 +23,21 @@ export default function UserContext({children}) {
     const [user, setUser]= useState({})
     const [allUsers, setAllUsers]= useState({})
 
-    const [authenticated, _setAuthenticated ] =useState(window.localStorage.getItem('AUTHENTICATED'))
+    const [authenticated, _setAuthenticated ] =useState('true' === window.localStorage.getItem('AUTHENTICATED'))
 
     const login = async (email, password) => {
        return  Api.login(email, password)
      
     }
 
+    const signup = async (firstname, lastname, email, password , c_password) => {
+      return  Api.signup(firstname, lastname, email, password , c_password)
+    }
 
 
     const logout =  () => {
-
       setUser({});
-      _setAuthenticated(false);
+      setAuthenticated(false);
     }
 
     const setAuthenticated = (isAuthenticated) =>
@@ -51,6 +54,7 @@ export default function UserContext({children}) {
         allUsers,
         setAllUsers,
         login,
+        signup,
         logout,
         authenticated,
         setAuthenticated

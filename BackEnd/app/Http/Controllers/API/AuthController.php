@@ -44,18 +44,17 @@ class AuthController extends BaseController
 
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
-
+        $randomStr = Str::random(4);
+        $input['username'] = strtolower($input['firstname'] . $randomStr);
 
         try {
             $user = User::create($input);
-            $success['firstname'] =  $user->firstname;
+            $success['user'] =  $user;
             return $this->sendResponse($success, 'User registered successfully.');
         } catch (QueryException $e) {
 
-            if (Str::contains($e->getMessage(), 'Duplicate entry')) {
-                return $this->sendError('Email already taken.', [], 409);
-            }
-            return $this->sendError('Failed to register user.', [], 500);
+            error_log($e->getMessage());
+            return $this->sendError('Failed to register user. ' . $e->getMessage(), [], 500);
         }
     }
 
