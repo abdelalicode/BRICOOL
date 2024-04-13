@@ -14,16 +14,19 @@ import {
 import { Input } from "@/components/ui/input";
 import { axiosClient } from "../../api/axios";
 import { useNavigate } from "react-router";
-import { ADMINHOME, HOME } from "./../../router/index";
+import { ADMINHOME, HOME , LOGIN } from "../../router/index";
 import { useUserContext } from "../../context/UserContext";
 import { Link } from 'react-router-dom';
 
 const formSchema = z.object({
+    firstname: z.string().min(2).max(30),
+    lastname: z.string().min(2).max(30),
     email: z.string().min(2).max(30),
     password: z.string().min(6).max(50),
+    c_password: z.string().min(6).max(50),
 });
 
-export default function ClientLogin() {
+export default function ClientSignUp() {
     const { setAuthenticated } = useUserContext();
     const context = useUserContext();
 
@@ -31,50 +34,100 @@ export default function ClientLogin() {
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            email: "abdelali@gmail.com",
-            password: "123456789",
+            firstname: "",
+            lastname: "",
+            email: "",
+            password: "",
+            c_password: "",
         },
     });
 
     const [loading, setLoading] = useState(false);
+    const [show, setShow] = useState(false);
+    const [message, setMessage] = useState("");
 
     const onSubmit = async (values) => {
         setLoading(true);
-        await context.login(values.email, values.password)
+        const { firstname, lastname, email, password, c_password } = values;
+
+        await context.signup(firstname, lastname, email, password, c_password)
             .then((value) => {
-                
+                console.log(value);
                 if (value.status === 200) {
-                    setAuthenticated(true);
-                    if(value.data.data.user.role_id === 3)
-                    {
-                        navigate(HOME);
-                    }
-                    else if (value.data.data.user.role_id === 1)
-                    {
-                        navigate(ADMINHOME);
-                    }
+                 setShow(true);
+                setMessage(value.data.message);
+
+                setTimeout(() => {
+                    navigate(LOGIN);
+                }, 1500);
                     
                 }
             })
             .catch(({ response }) => {
-                // console.log(response.data.data.error);
-                form.setError("globalError", {
-                    message: response.data.data.error,
-                });
+                console.log(response.data.data);
+                // form.setError("email", {
+                //     message: response.data.data.email,
+                // });
+                for (const field in formSchema.shape) {
+                    if (response.data.data[field]) {
+                        form.setError(field, {
+                            message: response.data.data[field],
+                        });
+                    }
+                }
             });
 
         setLoading(false);
     };
-    /****/
 
     return (
         <div className="mt-24 mx-96 space-y-4">
-            <h1 className="font-semibold text-3xl">LOGIN FORM</h1>
+            <h1 className="font-semibold text-3xl">SIGN UP FORM</h1>
+            {show && (
+                <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4" role="alert">
+                    <p className="font-bold">SUCCESS!</p>
+                    <p>{message}</p>
+                </div>
+            )}
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
-                    className="space-y-8"
+                    className="space-y-4"
                 >
+                    <div className="flex space-x-8">
+                        <FormField
+                            control={form.control}
+                            name="firstname"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>First Name</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder="First Name"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="lastname"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Last Name</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder="Last Name"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
                     <FormField
                         control={form.control}
                         name="email"
@@ -108,7 +161,23 @@ export default function ClientLogin() {
                             </FormItem>
                         )}
                     />
-
+                    <FormField
+                        control={form.control}
+                        name="c_password"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Confirm Password</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        type="password"
+                                        placeholder="Confirm Password"
+                                        {...field}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
                     <div>
                         {form.formState.errors.globalError && (
                             <div className="bg-red-400 text-white p-3 pl-12 w-1/3">
@@ -143,10 +212,10 @@ export default function ClientLogin() {
                     </Button>
                 </form>
             </Form>
-            <div>
-                <p>No a member yet? <Link to={'/signup'}>SIGN UP</Link></p>
-            </div>
             
+            <div>
+                <p>Already a member? <Link to={'/login'}>LOGIN</Link></p>
+            </div>
         </div>
     );
 }

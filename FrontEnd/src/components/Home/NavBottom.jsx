@@ -14,13 +14,13 @@ export default function ({logout}) {
               <Link to={"/"}>HOME</Link>
             </li>
             <li>
-              <Link to={"/transactions"}>JOBS</Link>
+              <Link to={"/"}>JOBS</Link>
             </li>
             <li>
-              <Link to={"/transactions"}>CITIES</Link>
+              <Link to={"/"}>CITIES</Link>
             </li>
             <li>
-              <Link to={"/transactions"}>SERVICES</Link>
+              <Link to={"/"}>SERVICES</Link>
             </li>
           </ul>
 
