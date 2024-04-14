@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { axiosClient } from "../../api/axios";
-import Transactions from "../../pages/Transactions";
-import { useTransactionContext } from "../../context/TransactionContext";
+import { useHomeContext } from "../../context/HomeContext";
 import Api from "../../services/Api";
 import { useUserContext } from "../../context/UserContext";
 import { LOGIN } from "../../router";
 import { Button } from "@/components/ui/button";
 import NavTop from "../../components/Home/NavTop";
 import NavBottom from "../../components/Home/NavBottom";
-import "../../App.css"
+import "../../App.css";
 
 export default function ClientHomeLayout() {
   const navigate = useNavigate();
   // const [transaction, setTransaction] = useState({});
-  const { transaction, setTransaction } = useTransactionContext();
   const {
     user,
     setUser,
@@ -23,6 +21,7 @@ export default function ClientHomeLayout() {
     logout: contextLogout,
   } = useUserContext();
   const context = useUserContext();
+  
   const [loading, setLoading] = useState(true);
 
   // useEffect(() => {
@@ -45,11 +44,6 @@ export default function ClientHomeLayout() {
 
   // }, []);
 
-  const fetchData = async () => {
-    const transactions = await Api.getTransaction();
-    setTransaction(transactions);
-    setLoading(false);
-  };
 
   const logout = async () => {
     Api.logout().then(() => {
@@ -59,11 +53,11 @@ export default function ClientHomeLayout() {
   };
 
   return (
-    <div  className="background">
+    <div className="background">
       <header>
-        <NavTop/>
-        
-        <NavBottom logout = {logout}/>
+        <NavTop />
+
+        <NavBottom logout={logout} />
       </header>
       <main>
         <Outlet />

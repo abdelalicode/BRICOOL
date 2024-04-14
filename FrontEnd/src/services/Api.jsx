@@ -23,25 +23,32 @@ const Api = {
         return  await axiosClient.post("logout")
     },
 
-    SendTransaction: async (receiver_wallet_id, amount) => {
-        return await axiosClient.post("api/transfer", {receiver_wallet_id, amount})
-    },
+    // SendTransaction: async (receiver_wallet_id, amount) => {
+    //     return await axiosClient.post("api/transfer", {receiver_wallet_id, amount})
+    // },
 
-    getTransaction : async () => {
-        const sentTransResponse = await axiosClient.get("api/senttrans");
-        // console.log(sentTransResponse.data);
+    // getTransaction : async () => {
+    //     const sentTransResponse = await axiosClient.get("api/senttrans");
+    //     // console.log(sentTransResponse.data);
 
-        const receivedTransResponse = await axiosClient.get(
-            "api/receivedtrans"
-        );
-        // console.log(receivedTransResponse.data);
+    //     const receivedTransResponse = await axiosClient.get(
+    //         "api/receivedtrans"
+    //     );
+    //     // console.log(receivedTransResponse.data);
 
-        const AllTransactions = {
-            sentTransactions: sentTransResponse.data,
-            receivedTransactions: receivedTransResponse.data,
-        };
+    //     const AllTransactions = {
+    //         sentTransactions: sentTransResponse.data,
+    //         receivedTransactions: receivedTransResponse.data,
+    //     };
 
-        return AllTransactions
+    //     return AllTransactions
+    // },
+    getJobs: async () => {
+        return await  axiosClient.get('api/job')
+      },
+
+    getCities: async () => {
+        return await  axiosClient.get('api/cities')
     },
 
     getUser: async () => {

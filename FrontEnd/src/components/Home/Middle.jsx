@@ -1,8 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../../App.css"
+import "../../App.css";
+import { useHomeContext } from "../../context/HomeContext";
 
 export default function () {
+  const { cities, jobs } = useHomeContext();
+  console.log(cities);
+  console.log(jobs);
+
   return (
     <>
       <div className="grid grid-cols-2 gap-4 pl-[200px] pt-[240px]">
@@ -34,29 +39,32 @@ export default function () {
           </p>
 
           <div class="mt-8  text-[12px] min-w-[558px] min-h-[60px] bg-[#D9D9D9] rounded-lg bg-opacity-40 backdrop-blur-xl flex items-center">
-            <select class="ml-6 text-white py-2.5  text-sm text-gray-500 bg-transparent border-0 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-              <option selected>Which city</option>
-              <option value="US">United States</option>
-              <option value="CA">Canada</option>
-              <option value="FR">France</option>
-              <option value="DE">Germany</option>
+            <select className="ml-6 text-white py-2.5 text-sm text-gray-500 bg-transparent border-0 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+              <option value="">Which city</option>
+              {cities &&
+                cities.data.map((city) => (
+                  <option key={city.id} value={city.id}>
+                    {city.name}
+                  </option>
+                ))}
             </select>
-            <select class="ml-5 text-white py-2.5  text-sm text-gray-500 bg-transparent border-0  border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-            <option selected>What type of work</option>
-              <option value="US">United States</option>
-              <option value="CA">Canada</option>
-              <option value="FR">France</option>
-              <option value="DE">Germany</option>
+            <select className="ml-5 text-white py-2.5 text-sm text-gray-500 bg-transparent border-0  border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+              <option value="">What type of work</option>
+              {jobs &&
+                jobs.data.data.map((job) => (
+                  <option key={job.id} value={job.id}>
+                    {job.type}
+                  </option>
+                ))}
             </select>
-            <select class="ml-5 text-white py-2.5  text-sm text-gray-500 bg-transparent border-0  border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
-            <option selected>Date</option>
-              <option value="US">United States</option>
-              <option value="CA">Canada</option>
-              <option value="FR">France</option>
-              <option value="DE">Germany</option>
-            </select>
+            <input
+              type="date"
+              className="ml-5 text-white py-2.5 text-sm bg-transparent border-0 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:border-gray-200 peer"
+            />
 
-            <button className="font-semibold text-[12px] bg-yellow-500 px-6 py-2 ml-2">SUBMIT</button>
+            <button className="font-semibold text-[12px] bg-yellow-500 px-6 py-2 ml-2">
+              SUBMIT
+            </button>
           </div>
         </div>
 
