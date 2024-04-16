@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { axiosClient } from "../../api/axios";
-import Transactions from "../../pages/Transactions";
+import Transactions from "../../pages/FilteredOffers";
 import Api from "../../services/Api";
 import { useUserContext } from "../../context/UserContext";
 import { LOGIN } from "../../router";

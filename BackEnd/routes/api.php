@@ -31,3 +31,4 @@ Route::put('update', [AuthController::class, 'updateProfile']);
 
 Route::resource('job', JobController::class);
 Route::get('/cities', [HomeController::class, 'getCities']);
+Route::post('/offersby', [HomeController::class, 'filterOffers']);

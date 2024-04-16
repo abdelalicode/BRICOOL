@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Home from "./../pages/Home";
 import Register from "./../pages/Register";
 import Login from "./../pages/Login";
-import Transactions from "../pages/Transactions";
+import Transactions from "../pages/FilteredOffers";
 import NotFound from "../pages/NotFound";
 import Layout from "./../layouts/Layout";
 import ClientHomeLayout from "../layouts/Client/ClientHomeLayout";
@@ -11,14 +11,18 @@ import SendTransaction from "../pages/SendTransaction";
 import UpdateProfile from "../pages/UpdateProfile";
 import ADminDashboardLayout from "../layouts/Admin/AdminDashboardLayout";
 import AdminHome from "../pages/AdminHome";
-import Test from "../pages/Test";
+import FilteredOffers from "../pages/FilteredOffers";
+import Jobs from "../pages/Jobs";
+import Cities from "../pages/Cities";
 
 export const HOME = "/";
 export const ADMINHOME = "/admin";
-export const TRANSACTIONS = "/transactions";
+export const FILTEREDOFFERS = "/filteredoffers";
 export const SENDTRANSACTION = "/sentransaction";
 export const LOGIN = "/login";
 export const UPDATEPROFILE = "/updateprofile";
+export const JOBS = "/jobs";
+export const CITIES = "/cities";
 
 export const router = createBrowserRouter([
   {
@@ -27,10 +31,6 @@ export const router = createBrowserRouter([
       {
         path: "*",
         element: <NotFound />,
-      },
-      {
-        path: "/test",
-        element: <Test />,
       },
     ],
   },
@@ -57,12 +57,16 @@ export const router = createBrowserRouter([
       },
 
       {
-        path: TRANSACTIONS,
-        element: <Transactions />,
+        path: FILTEREDOFFERS,
+        element: <FilteredOffers />,
       },
       {
-        path: SENDTRANSACTION,
-        element: <SendTransaction />,
+        path: JOBS,
+        element: <Jobs />,
+      },
+      {
+        path: CITIES,
+        element: <Cities />,
       },
       {
         path: UPDATEPROFILE,

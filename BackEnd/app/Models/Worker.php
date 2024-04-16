@@ -13,6 +13,8 @@ class Worker extends User
         'available',
     ];
 
+    protected $table = 'users';
+
     public function job()
     {
         return $this->belongsTo(Job::class)->withDefault();

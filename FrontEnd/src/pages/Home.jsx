@@ -6,11 +6,6 @@ import { useState } from "react";
 import Middle from "../components/Home/Middle";
 
 export default function Home() {
-  const [showBalance, setShowBalance] = useState(false);
-  console.log(showBalance);
-  const show = () => {
-    setShowBalance(!showBalance);
-  };
 
   const context = useUserContext();
   return (

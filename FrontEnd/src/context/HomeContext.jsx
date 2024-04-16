@@ -7,10 +7,18 @@ import { HOME } from "../router/index";
 export const StateContext = createContext({
   cities: {},
   jobs: {},
+  selectedCity: null,
+  selectedJob: null,
   authenticated: false,
   setCities: () => {},
   setJobs: () => {},
   setAuthenticated: () => {},
+  setSelectedCity: () => {},
+  setSelectedJob: () => {},
+  filteredOffers: {},
+  setFilteredOffers: () => {},
+  loading : true,
+  setLoading : () => {}
 });
 
 export default function HomeContext({ children }) {
@@ -18,11 +26,18 @@ export default function HomeContext({ children }) {
   const [jobs, setJobs] = useState(null);
   // const [user, setUser]= useState()
   const [authenticated, setAuthenticated] = useState(false);
+  const [filteredOffers, setFilteredOffers] = useState([]);
+  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedJob, setSelectedJob] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
+  const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     const fetchCities = async () => {
       const cities = await Api.getCities();
       setCities(cities);
+      setLoading(false)
     };
 
     fetchCities();
@@ -30,10 +45,17 @@ export default function HomeContext({ children }) {
     const fetchJobs = async () => {
       const jobs = await Api.getJobs();
       setJobs(jobs);
+      setLoading(false)
     };
 
     fetchJobs();
+
+    setSelectedCity(selectedCity);
+    setSelectedJob(selectedJob);
+    setSelectedDate(selectedDate);
+    setFilteredOffers(filteredOffers);
   }, []);
+
 
   return (
     <>
@@ -45,6 +67,16 @@ export default function HomeContext({ children }) {
           setJobs,
           authenticated,
           setAuthenticated,
+          filteredOffers,
+          setFilteredOffers,
+          selectedCity,
+          selectedDate,
+          selectedJob,
+          setSelectedCity,
+          setSelectedJob,
+          setSelectedDate,
+          loading,
+          setLoading
         }}
       >
         {children}

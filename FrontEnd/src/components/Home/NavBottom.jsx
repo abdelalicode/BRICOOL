@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
+import { CITIES, JOBS } from "../../router";
 
 export default function ({logout}) {
   const context = useUserContext();
@@ -14,10 +15,10 @@ export default function ({logout}) {
               <Link to={"/"}>HOME</Link>
             </li>
             <li>
-              <Link to={"/"}>JOBS</Link>
+              <Link to={JOBS}>JOBS</Link>
             </li>
             <li>
-              <Link to={"/"}>CITIES</Link>
+              <Link to={CITIES}>CITIES</Link>
             </li>
             <li>
               <Link to={"/"}>SERVICES</Link>
@@ -58,7 +59,7 @@ export default function ({logout}) {
               {context.authenticated ? (
                 <div>
                   <Link to="/requestjob">
-                    <button className="h-full  bg-white p-[17px] text-sm">
+                    <button className="h-full  bg-white p-[18px] text-sm">
                       REQUEST A JOB
                     </button>
                   </Link>
