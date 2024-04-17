@@ -14,6 +14,9 @@ import AdminHome from "../pages/AdminHome";
 import FilteredOffers from "../pages/FilteredOffers";
 import Jobs from "../pages/Jobs";
 import Cities from "../pages/Cities";
+import OfferByCities from "../pages/OfferByCities";
+import OfferByJobs from "../pages/OfferByJobs";
+import WorkerProfile from "../pages/WorkerProfile";
 
 export const HOME = "/";
 export const ADMINHOME = "/admin";
@@ -23,6 +26,9 @@ export const LOGIN = "/login";
 export const UPDATEPROFILE = "/updateprofile";
 export const JOBS = "/jobs";
 export const CITIES = "/cities";
+export const OFFERBYJOBS = "/jobs:id";
+export const OFFERBYCITIES = "/cities/:id";
+export const WORKERPROFILE = "/worker/:id";
 
 export const router = createBrowserRouter([
   {
@@ -67,6 +73,18 @@ export const router = createBrowserRouter([
       {
         path: CITIES,
         element: <Cities />,
+      },
+      {
+        path: OFFERBYCITIES,
+        element: <OfferByCities />,
+      },
+      {
+        path: OFFERBYJOBS,
+        element: <OfferByJobs />,
+      },
+      {
+        path: WORKERPROFILE,
+        element: <WorkerProfile />,
       },
       {
         path: UPDATEPROFILE,

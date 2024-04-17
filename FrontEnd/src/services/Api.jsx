@@ -32,6 +32,18 @@ const Api = {
     });
   },
 
+  OffersByCity: async (id) => {
+    return await axiosClient.get(`/api/showbycity/${id}`);
+  },
+
+  OffersByJob: async (id) => {
+    return await axiosClient.get(`/api/showbyjob/${id}`);
+  },
+
+  getWorker: async (id) => {
+    return await axiosClient.get(`/api/worker/${id}`);
+  },
+
   // SendTransaction: async (receiver_wallet_id, amount) => {
   //     return await axiosClient.post("api/transfer", {receiver_wallet_id, amount})
   // },

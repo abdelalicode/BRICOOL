@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\HomeController;
 use App\Http\Controllers\API\JobController;
+use App\Http\Controllers\API\OfferController;
 use App\Http\Controllers\TransationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -31,4 +32,7 @@ Route::put('update', [AuthController::class, 'updateProfile']);
 
 Route::resource('job', JobController::class);
 Route::get('/cities', [HomeController::class, 'getCities']);
-Route::post('/offersby', [HomeController::class, 'filterOffers']);
+Route::get('/worker/{id}', [HomeController::class, 'getWorker']);
+Route::post('/offersby', [OfferController::class, 'filterOffers']);
+Route::get('/showbycity/{id}', [OfferController::class, 'showByCity']);
+Route::get('/showbyjob/{id}', [OfferController::class, 'showByJob']);

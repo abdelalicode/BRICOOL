@@ -20,7 +20,7 @@ export default function Jobs() {
             </div>
             <div className="relative p-6 px-6 py-14 md:px-12">
               <h2 className="mb-6 block font-sans text-4xl font-medium leading-[1.5] tracking-normal text-white antialiased">
-              {job.type}
+              {job.type}s
               </h2>
               <h5 className="block mb-4 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-gray-400">
                 Check Offers
@@ -28,7 +28,7 @@ export default function Jobs() {
               <img
                 alt="City"
                 src="https://img.icons8.com/color/48/job--v1.png"
-                class="relative inline-block h-[64px] w-[64px] !rounded-full border-2 border-white object-cover object-center"
+                className="relative inline-block h-[64px] w-[64px] !rounded-full border-2 border-white object-cover object-center"
               />
             </div>
           </div>

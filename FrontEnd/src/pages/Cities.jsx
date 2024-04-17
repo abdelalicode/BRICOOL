@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useHomeContext } from "../context/HomeContext";
 import "../App.css";
+import Api from "../services/Api";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Cities() {
   const { cities, loading } = useHomeContext();
+  const navigate = useNavigate();
 
-  const handleCityClick = (cityId) => {
-    console.log(`/offers/${cityId}`);
-  };
+
+  // const handleCityClick = async (id) => {
+     // navigate(`/cities/${id}`);
+    
+  // };
 
   if (!cities || loading) {
     return <div className="mx-auto mt-24 spinner"></div>;
@@ -29,13 +33,15 @@ export default function Cities() {
               <h5 className="block mb-4 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-gray-400">
                 Check Offers
               </h5>
-              <button onClick={() => handleCityClick(city.id)}>
+              <Link to={`/cities/${city.id}`}>
               <img
                 alt="City"
                 src="https://img.icons8.com/color/48/timezone-utc"
-                class="relative inline-block h-[64px] w-[64px] !rounded-full border-2 border-white object-cover object-center"
+                className="relative inline-block h-[64px] w-[64px] !rounded-full border-2 border-white object-cover object-center"
               />
-              </button>
+              </Link>
+              
+              
 
             </div>
           </div>
