@@ -24,7 +24,7 @@ const formSchema = z.object({
 });
 
 export default function ClientLogin() {
-    const { setAuthenticated } = useUserContext();
+    const { setAuthenticated, setUser  } = useUserContext();
     const context = useUserContext();
 
     const navigate = useNavigate();
@@ -45,6 +45,8 @@ export default function ClientLogin() {
                 
                 if (value.status === 200) {
                     setAuthenticated(true);
+                    setUser(value.data.data);
+                    window.localStorage.setItem('USER', value.data.data.user)
                     if(value.data.data.user.role_id === 3)
                     {
                         navigate(HOME);

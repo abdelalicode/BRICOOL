@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, Outlet, useNavigate, useLocation  } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { axiosClient } from "../../api/axios";
 import { useHomeContext } from "../../context/HomeContext";
 import Api from "../../services/Api";
@@ -10,9 +10,8 @@ import NavTop from "../../components/Home/NavTop";
 import NavBottom from "../../components/Home/NavBottom";
 import "../../App.css";
 
-export default function ClientHomeLayout() {
+export default function ClientLayout() {
   const navigate = useNavigate();
-  const location = useLocation();
   // const [transaction, setTransaction] = useState({});
   const {
     user,
@@ -25,25 +24,6 @@ export default function ClientHomeLayout() {
   
   const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //     fetchData();
-
-  //     Api.getUser()
-  //         .then(({ data }) => {
-  //             setUser(data);
-  //             if(data.role.name == "admin")
-  //             {
-  //                 navigate('/admin')
-  //             }
-  //             setAuthenticated(true);
-
-  //         })
-  //         .catch((reason) => {
-  //             contextLogout()
-  //             navigate(LOGIN);
-  //         });
-
-  // }, []);
 
 
   const logout = async () => {
@@ -56,7 +36,7 @@ export default function ClientHomeLayout() {
   
 
   return (
-    <div className={location.pathname === HOME ? "background" : ""}>
+    <>
       <header>
         <NavTop />
 
@@ -66,6 +46,6 @@ export default function ClientHomeLayout() {
         <Outlet />
       </main>
       <footer></footer>
-    </div>
+    </>
   );
 }

@@ -2,16 +2,16 @@ import { useState } from "react";
 import "./App.css";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router/index";
-import TransactionContext from "./context/TransactionContext";
 import UserContext from "./context/UserContext";
+import HomeContext from "./context/HomeContext";
 
 function App() {
     return (
         <>
             <UserContext>
-                <TransactionContext>
+                <HomeContext>
                     <RouterProvider router={router} />
-                </TransactionContext>
+                </HomeContext>
             </UserContext>
         </>
     );
