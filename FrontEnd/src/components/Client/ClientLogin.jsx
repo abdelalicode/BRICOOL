@@ -46,7 +46,7 @@ export default function ClientLogin() {
                 if (value.status === 200) {
                     setAuthenticated(true);
                     setUser(value.data.data);
-                    window.localStorage.setItem('USER', value.data.data.user)
+                    window.localStorage.setItem('token', value.data.data.token)
                     if(value.data.data.user.role_id === 3)
                     {
                         navigate(HOME);

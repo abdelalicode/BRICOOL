@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\API\BaseController;
 use App\Http\Resources\UserResource;
+use App\Models\Client;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -86,6 +87,35 @@ class AuthController extends BaseController
         }
     }
 
+    public function updateAddress(Request $request)
+    {
+        $validated = $request->validate([
+            'id' => 'required',
+            'address' =>'required'
+        ]);
+
+        if($validated['id'] === Auth::user()->id)
+        {
+            $user = Client::find($validated['id']);
+            $user->update($validated);
+        }
+        return $this->sendResponse($user, 'Address updated successfully.');
+    }
+
+    public function updatePhone(Request $request)
+    {
+        $validated = $request->validate([
+            'id' => 'required',
+            'phone' =>'required'
+        ]);
+
+        if($validated['id'] === Auth::user()->id)
+        {
+            $user = Client::find($validated['id']);
+            $user->update($validated);
+        }
+        return $this->sendResponse($user, 'Phone updated successfully.');
+    }
 
     public function updateProfile(Request $request)
     {

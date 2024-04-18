@@ -52,6 +52,13 @@ const Api = {
       return await axiosClient.post("api/request", {city, description})
   },
 
+  UpdatePhone : async (phone, id) => {
+      return await axiosClient.put("api/phone", {phone, id})
+  },
+
+  UpdateAddress : async (address, id) => {
+    return await axiosClient.put("api/address", {address, id})
+  },
   // getTransaction : async () => {
   //     const sentTransResponse = await axiosClient.get("api/senttrans");
   //     // console.log(sentTransResponse.data);

@@ -12,6 +12,7 @@ class Client extends User
     protected $table = 'users';
 
     protected $fillable = [
+        'phone',
         'address',
     ];
 

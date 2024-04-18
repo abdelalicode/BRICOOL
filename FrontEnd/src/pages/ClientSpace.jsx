@@ -1,71 +1,212 @@
 import React, { useEffect, useState } from "react";
 import { useUserContext } from "../context/UserContext";
 import Api from "../services/Api";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 export default function ClientSpace() {
   const [client, setClient] = useState({});
   const [loading, setLoading] = useState(true);
 
+  const [phoneformData, setphoneFormData] = useState({
+    phone: "",
+  });
+
+  const [formData, setFormData] = useState({
+    address: "",
+  });
+
   useEffect(() => {
     const fetchClient = async () => {
       const response = await Api.getClient();
       setClient(response.data);
-      setLoading(false);
     };
-
     fetchClient();
   }, []);
 
-  console.log(client);
+  const fetchUpdatedClient = async () => {
+    const response = await Api.getClient();
+    setClient(response.data);
+  };
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setphoneFormData({ ...phoneformData, [name]: value });
+  };
+
+  const handletextChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmitPhone = async (event) => {
+    event.preventDefault();
+    const response = await Api.UpdatePhone(phoneformData.phone, client.id);
+    console.log(response);
+    await fetchUpdatedClient();
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const response = await Api.UpdateAddress(formData.address, client.id);
+    console.log(response); 
+    await fetchUpdatedClient();
+  };
+
 
   return (
     <div>
-      hello {client.firstname}
       <div className="">
         <div className="container mx-auto py-8">
           <div className="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
             <div className="col-span-4 sm:col-span-3">
-              <div className="bg-white shadow rounded-lg p-6">
+              <div className="bg-white rounded-lg p-6">
                 <div className="flex flex-col items-center">
                   <img
                     src="https://randomuser.me/api/portraits/men/94.jpg"
                     className="w-32 h-32 bg-gray-300 rounded-full mb-4"
                     alt="profile-pic"
                   />
-                  <h1 className="text-xl font-bold">John Doe</h1>
-                  <p className="text-gray-700">Software Developer</p>
-                  <div className="mt-6 flex flex-wrap gap-4 justify-center">
-                    <a
-                      href="#"
-                      className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
-                    >
-                      Contact
-                    </a>
-                    <a
-                      href="#"
-                      className="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded"
-                    >
-                      Resume
-                    </a>
-                  </div>
+                  <h1 className="text-xl font-bold capitalize">
+                    {client.firstname} {client.lastname}
+                  </h1>
+                  <p className="text-gray-700">{client.username}</p>
                 </div>
                 <hr className="my-6 border-t border-gray-300" />
                 <div className="flex flex-col">
                   <span className="text-gray-700 uppercase font-bold tracking-wider mb-2">
-                    Skills
+                    PERSONAL INFORMATIONS
                   </span>
-                  <ul>
-                    <li className="mb-2">JavaScript</li>
-                    <li className="mb-2">React</li>
-                    <li className="mb-2">Node.js</li>
-                    <li className="mb-2">HTML/CSS</li>
-                    <li className="mb-2">Tailwind Css</li>
+                  <ul className="text-sm">
+                    <li className="mb-4 flex items-center gap-2">
+                      Email:{" "}
+                      <span className="bg-gray-100 rounded-md bg-opacity-70 p-1">
+                        {client.email}
+                      </span>
+                    </li>
+                    <li className="mb-4 flex items-center gap-2">
+                      Phone:{" "}
+                      {client.phone ? (
+                        <span className="bg-gray-100 p-1">
+                          {" "}
+                          {client.phone}{" "}
+                        </span>
+                      ) : (
+                        <span className="text-red-300">Add phone</span>
+                      )}
+                      <Popover>
+                        <PopoverTrigger>
+                          <img
+                            className="transition duration-100 ease-in-out opacity-0 hover:opacity-100"
+                            width="18"
+                            height="18"
+                            src="https://img.icons8.com/cotton/64/edit--v2.png"
+                            alt="edit--v2"
+                          />
+                        </PopoverTrigger>
+                        <PopoverContent>
+                          <form
+                            onSubmit={handleSubmitPhone}
+                            className="w-full max-w-sm"
+                          >
+                            <div className="flex gap-3 items-center">
+                              <div className="md:w-2/3">
+                                <input
+                                  name="phone"
+                                  value={phoneformData.phone}
+                                  onChange={handleInputChange}
+                                  type="text"
+                                  id="phone"
+                                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-50 focus:border-blue-50 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                  placeholder="Your Phone Number"
+                                  required
+                                />
+                              </div>
+                              <button
+                                className="focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                type="submit"
+                              >
+                                <img
+                                  width="24"
+                                  height="24"
+                                  src="https://img.icons8.com/pulsar-color/48/filled-sent.png"
+                                  alt="filled-sent"
+                                />{" "}
+                              </button>
+                            </div>
+                          </form>
+                        </PopoverContent>
+                      </Popover>
+                    </li>
+                    <li className="mb-4 flex items-center gap-2">
+                      Address:{" "}
+                      {client.address ? (
+                        <span className="bg-gray-100 p-1">
+                          {" "}
+                          {client.address}{" "}
+                        </span>
+                      ) : (
+                        <span className="text-red-300">Add address</span>
+                      )}
+                      <Popover>
+                        <PopoverTrigger>
+                          <img
+                            className="transition duration-100 ease-in-out opacity-0 hover:opacity-100"
+                            width="18"
+                            height="18"
+                            src="https://img.icons8.com/cotton/64/edit--v2.png"
+                            alt="edit--v2"
+                          />
+                        </PopoverTrigger>
+                        <PopoverContent>
+                          <form
+                            onSubmit={handleSubmit}
+                            className="w-full max-w-sm"
+                          >
+                            <div className="flex gap-3 items-center">
+                              <div className="md:w-2/3">
+                                <textarea
+                                  name="address"
+                                  value={formData.address}
+                                  onChange={handletextChange}
+                                  type="text"
+                                  id="address"
+                                  rows="1"
+                                  className="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-50 focus:border-blue-50 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                  placeholder="Your Address"
+                                >{formData.address}</textarea>
+                              </div>
+                              <button
+                                className="focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                type="submit"
+                              >
+                                <img
+                                  width="24"
+                                  height="24"
+                                  src="https://img.icons8.com/pulsar-color/48/filled-sent.png"
+                                  alt="filled-sent"
+                                />{" "}
+                              </button>
+                            </div>
+                          </form>
+                        </PopoverContent>
+                      </Popover>
+                    </li>
+                    <li className="mb-4">
+                      Member Since:{" "}
+                      <span className="bg-gray-100 rounded-md bg-opacity-70 p-1">
+                        {new Date(client.created_at).toLocaleDateString()}
+                      </span>
+                    </li>
                   </ul>
                 </div>
               </div>
             </div>
             <div className="col-span-4 sm:col-span-9">
-              <div className="bg-white shadow rounded-lg p-6">
+              <div className="bg-white rounded-lg p-6">
                 <h2 className="text-xl font-bold mb-4">About Me</h2>
                 <p className="text-gray-700">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed

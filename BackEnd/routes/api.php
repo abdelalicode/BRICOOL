@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    $user = $request->user()->load('requests', 'role' , 'reviews');
+    $user = $request->user()->load('role');
     return $user;
 });
 
@@ -39,3 +39,7 @@ Route::get('/client', [HomeController::class, 'getClient']);
 Route::post('/offersby', [OfferController::class, 'filterOffers']);
 Route::get('/showbycity/{id}', [OfferController::class, 'showByCity']);
 Route::get('/showbyjob/{id}', [OfferController::class, 'showByJob']);
+
+Route::put('address', [AuthController::class, 'updateAddress']);
+Route::put('phone', [AuthController::class, 'updatePhone']);
+
