@@ -1,7 +1,11 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
-use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\HomeController;
+use App\Http\Controllers\API\JobController;
+use App\Http\Controllers\API\OfferController;
+use App\Http\Controllers\RequestController;
+use App\Http\Controllers\TransationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -11,26 +15,27 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
+| routes are loaded by the RouteServiceProvider within a group which
+| is assigned the "api" middleware group. Enjoy building your API!
 |
 */
 
-
-
-/*** ================================ Authentication ==========================*/
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
+    $user = $request->user()->load('requests', 'role' , 'reviews');
+    return $user;
 });
 
 
-Route::controller(AuthController::class)->group(function(){
-    Route::post('register' , 'register');
-    Route::post('login' , 'login');
-});
+Route::post('register', [AuthController::class, 'register']);
+Route::post('login', [AuthController::class, 'login']);
+Route::middleware('auth:sanctum')->post('logout', [AuthController::class, 'logout']);
+Route::put('update', [AuthController::class, 'updateProfile']);
 
-Route::middleware('auth:sanctum')->group(function(){
-    Route::resource('user', UserController::class);
-    Route::post('logout' , [AuthController::class ,'logout']);
-});
+Route::resource('job', JobController::class);
+Route::resource('request', RequestController::class);
+Route::get('/cities', [HomeController::class, 'getCities']);
+Route::get('/worker/{id}', [HomeController::class, 'getWorker']);
+Route::get('/client', [HomeController::class, 'getClient']);
+Route::post('/offersby', [OfferController::class, 'filterOffers']);
+Route::get('/showbycity/{id}', [OfferController::class, 'showByCity']);
+Route::get('/showbyjob/{id}', [OfferController::class, 'showByJob']);

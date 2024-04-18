@@ -9,8 +9,13 @@ class Job extends Model
 {
     use HasFactory;
 
-
     protected $fillable = [
-      'type'  
+        'type'
     ];
+
+    public function workers()
+    {
+        return $this->hasMany(User::class);
+    }
+    
 }

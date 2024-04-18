@@ -21,6 +21,14 @@ return new class extends Migration
             $table->string('username');
             $table->timestamps();
         });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('address')->nullable();
+        });
+        
+        Schema::table('users', function (Blueprint $table) {
+            $table->boolean('available')->default(true);
+        });
     }
 
     /**
