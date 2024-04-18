@@ -53,11 +53,14 @@ export default function ({logout}) {
               </li>
             </ul>
             <div
-              className="w-full  md:w-auto -my-4 pl-48 sm:pl-0"
+              className="w-full  md:w-auto -my-4 pl-36 sm:pl-0"
               id="navbar-default"
             >
               {context.authenticated ? (
-                <div>
+                <div className="flex gap-4 items-center">
+                  <Link to={"/espaceclient"}>
+                    <img width="24" height="24" src="https://img.icons8.com/color/48/gender-neutral-user.png" alt="gender-neutral-user"/>
+                  </Link>
                   <Link to="/requestjob">
                     <button className="h-full  bg-white p-[18px] text-sm">
                       REQUEST A JOB

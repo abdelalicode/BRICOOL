@@ -19,10 +19,6 @@ export default function OfferByCities() {
       setLoading(false);
 
     };
-
-    
-
-
     fetchData();
   }, [id]);
 

@@ -4,6 +4,7 @@ import { useHomeContext } from "../context/HomeContext";
 import "../App.css";
 import { useParams } from "react-router-dom";
 import Api from "../services/Api";
+import ProfileTabs from "../components/Home/ProfileTabs";
 
 export default function WorkerProfile() {
   const { id } = useParams();
@@ -124,6 +125,7 @@ export default function WorkerProfile() {
               <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
                 <div className="flex flex-wrap justify-center">
                   <div className="w-full lg:w-9/12 px-4">
+                    <ProfileTabs worker_offers={worker.worker_offers} reviews_as_worker={worker.reviews_as_worker}/>
                   </div>
                 </div>
               </div>

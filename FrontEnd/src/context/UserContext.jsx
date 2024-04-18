@@ -7,7 +7,6 @@ import { HOME } from './../router/index';
 
 
 export const  UserStateContext = createContext({
-
     user: {},
     setUser: () => {},
     allUsers: {},
@@ -16,20 +15,22 @@ export const  UserStateContext = createContext({
     logout: ()=>{},
     login: (email, password) => {},
     signup: (firstname, lastname, email, password , c_password) => {},
-    setAuthenticated: () => {}
+    setAuthenticated: () => {},
+    loading : true,
+    setLoading : () => {}
 })
 
 export default function UserContext({children}) {
     const [user, setUser]= useState({})
     const [allUsers, setAllUsers]= useState({})
+    const [loading, setLoading] = useState(true);
+
 
     const [authenticated, _setAuthenticated ] =useState('true' === window.localStorage.getItem('AUTHENTICATED'))
 
     const login = async (email, password) => {
        return  Api.login(email, password)
-     
     }
-
     const signup = async (firstname, lastname, email, password , c_password) => {
       return  Api.signup(firstname, lastname, email, password , c_password)
     }
@@ -57,7 +58,9 @@ export default function UserContext({children}) {
         signup,
         logout,
         authenticated,
-        setAuthenticated
+        setAuthenticated,
+        loading,
+        setLoading
     }}>
       {children}
     </UserStateContext.Provider>

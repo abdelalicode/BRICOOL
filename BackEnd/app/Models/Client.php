@@ -9,11 +9,14 @@ class Client extends User
 {
     use HasFactory;
 
+    protected $table = 'users';
+
     protected $fillable = [
         'address',
     ];
 
-
+    
+ 
     public function requests()
     {
         return $this->hasMany(Request::class, 'client_id');

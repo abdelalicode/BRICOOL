@@ -2,12 +2,10 @@ import { createBrowserRouter } from "react-router-dom";
 import Home from "./../pages/Home";
 import Register from "./../pages/Register";
 import Login from "./../pages/Login";
-import Transactions from "../pages/FilteredOffers";
 import NotFound from "../pages/NotFound";
 import Layout from "./../layouts/Layout";
 import ClientHomeLayout from "../layouts/Client/ClientHomeLayout";
 import GuestLayout from "../layouts/GuestLayout";
-import SendTransaction from "../pages/SendTransaction";
 import UpdateProfile from "../pages/UpdateProfile";
 import ADminDashboardLayout from "../layouts/Admin/AdminDashboardLayout";
 import AdminHome from "../pages/AdminHome";
@@ -17,11 +15,13 @@ import Cities from "../pages/Cities";
 import OfferByCities from "../pages/OfferByCities";
 import OfferByJobs from "../pages/OfferByJobs";
 import WorkerProfile from "../pages/WorkerProfile";
+import RequestJob from "../pages/RequestJob";
+import ClientSpace from "../pages/ClientSpace";
 
 export const HOME = "/";
 export const ADMINHOME = "/admin";
 export const FILTEREDOFFERS = "/filteredoffers";
-export const SENDTRANSACTION = "/sentransaction";
+export const REQUESTJOB = "/requestjob";
 export const LOGIN = "/login";
 export const UPDATEPROFILE = "/updateprofile";
 export const JOBS = "/jobs";
@@ -29,6 +29,7 @@ export const CITIES = "/cities";
 export const OFFERBYJOBS = "/jobs:id";
 export const OFFERBYCITIES = "/cities/:id";
 export const WORKERPROFILE = "/worker/:id";
+export const CLIENTSPACE = "/espaceclient";
 
 export const router = createBrowserRouter([
   {
@@ -87,8 +88,16 @@ export const router = createBrowserRouter([
         element: <WorkerProfile />,
       },
       {
+        path: REQUESTJOB,
+        element: <RequestJob />,
+      },
+      {
         path: UPDATEPROFILE,
         element: <UpdateProfile />,
+      },
+      {
+        path: CLIENTSPACE,
+        element: <ClientSpace />,
       },
     ],
   },

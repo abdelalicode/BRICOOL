@@ -1,5 +1,5 @@
 import { axiosClient } from "../api/axios";
-import SendTransaction from "../pages/SendTransaction";
+import SendTransaction from "../pages/RequestJob";
 
 const Api = {
   getCsrfToken: async () => {
@@ -44,9 +44,13 @@ const Api = {
     return await axiosClient.get(`/api/worker/${id}`);
   },
 
-  // SendTransaction: async (receiver_wallet_id, amount) => {
-  //     return await axiosClient.post("api/transfer", {receiver_wallet_id, amount})
-  // },
+  getClient: async () => {
+    return await axiosClient.get(`/api/client/`);
+  },
+
+  SendRequestJob: async (city, description) => {
+      return await axiosClient.post("api/request", {city, description})
+  },
 
   // getTransaction : async () => {
   //     const sentTransResponse = await axiosClient.get("api/senttrans");
