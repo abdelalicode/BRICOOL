@@ -59,6 +59,10 @@ const Api = {
   UpdateAddress : async (address, id) => {
     return await axiosClient.put("api/address", {address, id})
   },
+
+  cancelRequest: async (id) => {
+    return await axiosClient.put("api/request/" + id)
+  },
   // getTransaction : async () => {
   //     const sentTransResponse = await axiosClient.get("api/senttrans");
   //     // console.log(sentTransResponse.data);

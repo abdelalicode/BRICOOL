@@ -35,11 +35,10 @@ Route::resource('job', JobController::class);
 Route::resource('request', RequestController::class);
 Route::get('/cities', [HomeController::class, 'getCities']);
 Route::get('/worker/{id}', [HomeController::class, 'getWorker']);
-Route::get('/client', [HomeController::class, 'getClient']);
+Route::middleware('auth:sanctum')->get('/client', [HomeController::class, 'getClient']);
 Route::post('/offersby', [OfferController::class, 'filterOffers']);
 Route::get('/showbycity/{id}', [OfferController::class, 'showByCity']);
 Route::get('/showbyjob/{id}', [OfferController::class, 'showByJob']);
 
 Route::put('address', [AuthController::class, 'updateAddress']);
 Route::put('phone', [AuthController::class, 'updatePhone']);
-

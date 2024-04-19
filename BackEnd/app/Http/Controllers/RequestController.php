@@ -52,9 +52,10 @@ class RequestController extends BaseController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, RequestModel $requestmodel)
+    public function update(Request $request,  $id)
     {
-        //
+        $requestModel = RequestModel::findOrFail($id);
+        return $requestModel->update(['status' => 0]);
     }
 
     /**
