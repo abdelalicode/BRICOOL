@@ -44,6 +44,10 @@ const Api = {
     return await axiosClient.get(`/api/worker/${id}`);
   },
 
+  getWorkers: async () => {
+    return await axiosClient.get("/api/workers");
+  },
+
   getClient: async () => {
     return await axiosClient.get(`/api/client/`);
   },
@@ -51,6 +55,10 @@ const Api = {
   SendRequestJob: async (city, description) => {
       return await axiosClient.post("api/request", {city, description})
   },
+
+  SendReview: async (stars, content, worker_id) => {
+    return await axiosClient.post("api/review", {stars, content, worker_id})
+},
 
   UpdatePhone : async (phone, id) => {
       return await axiosClient.put("api/phone", {phone, id})

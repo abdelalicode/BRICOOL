@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
-import { CITIES, JOBS } from "../../router";
+import { CITIES, JOBS, WORKERS } from "../../router";
 
 export default function ({logout}) {
   const context = useUserContext();
@@ -21,7 +21,7 @@ export default function ({logout}) {
               <Link to={CITIES}>CITIES</Link>
             </li>
             <li>
-              <Link to={"/"}>SERVICES</Link>
+              <Link to={WORKERS}>WORKERS</Link>
             </li>
           </ul>
 

@@ -7,6 +7,7 @@ import { useUserContext } from "../../context/UserContext";
 import { HOME, LOGIN } from "../../router";
 import { Button } from "@/components/ui/button";
 import NavTop from "../../components/Home/NavTop";
+import NavTup from "../../components/Home/NavTup";
 import NavBottom from "../../components/Home/NavBottom";
 import "../../App.css";
 
@@ -39,7 +40,7 @@ export default function ClientLayout() {
     <>
       <header>
         <NavTop />
-
+        <NavTup />
         <NavBottom logout={logout} />
       </header>
       <main>

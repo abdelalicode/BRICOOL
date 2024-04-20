@@ -30,4 +30,10 @@ class HomeController extends Controller
         ->with('reviews')->with('requests')->first();
     }
 
+
+    public function getAllWorkers()
+    {
+        return Worker::orderBy('firstname', 'asc')->where('role_id', 2)->with('job')->get();
+    }
+
 }

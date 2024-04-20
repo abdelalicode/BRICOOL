@@ -33,16 +33,7 @@ class OfferController extends Controller
         //
     }
 
-    // public function showByCity($id)
-    // {
-    //     $workers = Worker::where('city_id', $id)->with('workerOffers')->get();
 
-    //     $allOffers = $workers->flatMap(function ($worker) {
-    //         return $worker->workerOffers;
-    //     });
-
-    //     return response()->json($allOffers);
-    // }
 
     public function showByCity($id)
     {
@@ -55,13 +46,11 @@ class OfferController extends Controller
 
     public function showByJob($id)
     {
-        $workers = Worker::where('job_id', $id)->with('workerOffers')->get();
-
-        $allOffers = $workers->flatMap(function ($worker) {
-            return $worker->workerOffers;
-        });
-
-        return response()->json($allOffers);
+        $offers = Offer::whereHas('worker', function ($query) use ($id) {
+            $query->where('job_id', $id);
+        })->with('worker')->get();
+    
+        return response()->json($offers);
     }
 
     /**

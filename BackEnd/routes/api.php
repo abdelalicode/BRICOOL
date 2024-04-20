@@ -5,6 +5,7 @@ use App\Http\Controllers\API\HomeController;
 use App\Http\Controllers\API\JobController;
 use App\Http\Controllers\API\OfferController;
 use App\Http\Controllers\RequestController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\TransationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -33,8 +34,10 @@ Route::put('update', [AuthController::class, 'updateProfile']);
 
 Route::resource('job', JobController::class);
 Route::resource('request', RequestController::class);
+Route::resource('review', ReviewController::class);
 Route::get('/cities', [HomeController::class, 'getCities']);
 Route::get('/worker/{id}', [HomeController::class, 'getWorker']);
+Route::get('/workers', [HomeController::class, 'getAllWorkers']);
 Route::middleware('auth:sanctum')->get('/client', [HomeController::class, 'getClient']);
 Route::post('/offersby', [OfferController::class, 'filterOffers']);
 Route::get('/showbycity/{id}', [OfferController::class, 'showByCity']);

@@ -268,7 +268,7 @@ export default function ClientSpace() {
                         <p>
                           <span className="text-gray-700 mr-2">
                             <span className="bg-slate-100 text-slate-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">
-                              {new Date(request.created_at).toLocaleString()}
+                              {new Date(review.created_at).toLocaleString()}
                             </span>
                           </span>
                         </p>

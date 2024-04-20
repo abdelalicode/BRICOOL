@@ -12,8 +12,8 @@ class Review extends Model
     protected $fillable = [
         'stars',
         'content',
+        'worker_id',
         'client_id',
-        'worker_id'
     ];
 
     public function client()
