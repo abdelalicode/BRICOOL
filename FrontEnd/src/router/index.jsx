@@ -18,9 +18,12 @@ import WorkerProfile from "../pages/WorkerProfile";
 import RequestJob from "../pages/RequestJob";
 import ClientSpace from "../pages/ClientSpace";
 import Workers from "../pages/Workers";
+import WorkerHome from "../pages/Worker/WorkerHome";
+import WorkerDashboardLayout from "../layouts/Worker/WorkerDashboardLayout";
 
 export const HOME = "/";
 export const ADMINHOME = "/admin";
+export const WORKERHOME = "/worker";
 export const FILTEREDOFFERS = "/filteredoffers";
 export const REQUESTJOB = "/requestjob";
 export const LOGIN = "/login";
@@ -104,6 +107,15 @@ export const router = createBrowserRouter([
       {
         path: CLIENTSPACE,
         element: <ClientSpace />,
+      },
+    ],
+  },
+  {
+    element: <WorkerDashboardLayout />,
+    children: [
+      {
+        path: WORKERHOME,
+        element: <WorkerHome />,
       },
     ],
   },

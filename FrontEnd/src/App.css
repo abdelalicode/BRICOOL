@@ -7,6 +7,7 @@
   height: 100%;
 }
 
+
 @media (max-width: 940px) {
   .background {
     background-size: auto 100%;

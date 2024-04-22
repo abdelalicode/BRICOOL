@@ -21,7 +21,7 @@ const Api = {
   },
 
   logout: async () => {
-    return await axiosClient.post("logout");
+    return await axiosClient.post("api/logout");
   },
 
   filterOffers: async (selectedCity, selectedJob, selectedDate) => {
@@ -58,10 +58,14 @@ const Api = {
 
   SendReview: async (stars, content, worker_id) => {
     return await axiosClient.post("api/review", {stars, content, worker_id})
-},
+  },
 
   UpdatePhone : async (phone, id) => {
       return await axiosClient.put("api/phone", {phone, id})
+  },
+
+  UpdateRole : async (id) => {
+    return await axiosClient.put("api/role", {id})
   },
 
   UpdateAddress : async (address, id) => {

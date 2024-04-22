@@ -7,20 +7,21 @@ import SelectBar from "../components/Home/SelectBar";
 
 export default function FilteredOffers() {
   const location = useLocation();
-  const { selectedCity, selectedJob, selectedDate, filteredOffers, loading } =
+  const { selectedCity, selectedJob, selectedDate, filteredOffers ,loading } =
     useHomeContext();
 
-  if (!selectedCity || !selectedJob || !filteredOffers) {
+  if (!selectedCity || !selectedJob || !filteredOffers || !selectedDate ) {
     return (
       <div className="mx-24">
         <SelectBar />
         <h1 className="my-12 text-4xl font-bold">
-          AVAILABLE OFFERS LIST on {selectedDate}
+          AVAILABLE OFFERS LIST 
         </h1>
         <p className="text-lg text-gray-500">No offers available</p>
       </div>
     );
   }
+
 
   return (
     <div className="mx-24">
@@ -34,7 +35,7 @@ export default function FilteredOffers() {
       ) : (
         filteredOffers?.map((item) => (
           <div key={item.worker.id}>
-            {item.offers ? (
+            {item.offers != null ? (
               item.offers.map((offer) => (
                 <div
                   key={offer.id}

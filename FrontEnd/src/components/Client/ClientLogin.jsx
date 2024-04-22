@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { axiosClient } from "../../api/axios";
 import { useNavigate } from "react-router";
-import { ADMINHOME, HOME } from "./../../router/index";
+import { ADMINHOME, HOME, WORKERHOME } from "./../../router/index";
 import { useUserContext } from "../../context/UserContext";
 import { Link } from 'react-router-dom';
 
@@ -47,9 +47,14 @@ export default function ClientLogin() {
                     setAuthenticated(true);
                     setUser(value.data.data);
                     window.localStorage.setItem('token', value.data.data.token)
+                    window.localStorage.setItem('user', value.data.data.user)
                     if(value.data.data.user.role_id === 3)
                     {
                         navigate(HOME);
+                    }
+                    else if (value.data.data.user.role_id === 2)
+                    {
+                        navigate(WORKERHOME);
                     }
                     else if (value.data.data.user.role_id === 1)
                     {
@@ -59,7 +64,6 @@ export default function ClientLogin() {
                 }
             })
             .catch(({ response }) => {
-                // console.log(response.data.data.error);
                 form.setError("globalError", {
                     message: response.data.data.error,
                 });

@@ -44,12 +44,16 @@ export default function OfferByCities() {
 
               <div className="p-6">
                 <div>
-                <Link to={`/worker/${offer.worker.id}`}>
-
-                  <span className="text-xs font-medium text-blue-600 uppercase dark:text-blue-400">
-                    Enroll Offer
-                  </span>
-                </Link>
+                <div className="flex justify-between items-center">
+                      <Link to={`/worker/${offer.worker.id}`}>
+                        <span className="text-xs font-medium text-blue-600 uppercase dark:text-blue-400">
+                          Enroll Offer
+                        </span>
+                      </Link>
+                      <span className="text-xs font-medium text-pink-800 uppercase dark:text-blue-400">
+                        Hourly Rate: {offer.hourly_rate}
+                      </span>
+                </div>
 
                   <p
                     className="block mt-2 text-xl font-semibold text-gray-800 transition-colors duration-300 transform dark:text-white hover:text-gray-600 hover:underline"

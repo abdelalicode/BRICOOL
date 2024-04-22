@@ -6,6 +6,7 @@ use App\Http\Controllers\API\JobController;
 use App\Http\Controllers\API\OfferController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TransationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -45,3 +46,4 @@ Route::get('/showbyjob/{id}', [OfferController::class, 'showByJob']);
 
 Route::put('address', [AuthController::class, 'updateAddress']);
 Route::put('phone', [AuthController::class, 'updatePhone']);
+Route::put('role', [RoleController::class, 'update']);

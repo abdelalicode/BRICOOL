@@ -7,10 +7,14 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import CancelRequestModal from "../components/Home/CancelRequestModal";
+import { useNavigate } from "react-router-dom";
+import { HOME } from "../router";
 
 export default function ClientSpace() {
   const [client, setClient] = useState({});
   const [loading, setLoading] = useState(true);
+  const {logout} = useUserContext();
+  const navigate = useNavigate();
 
   const [phoneformData, setphoneFormData] = useState({
     phone: "",
@@ -28,6 +32,13 @@ export default function ClientSpace() {
     };
     fetchClient();
   }, []);
+
+
+  const updateRole = async () => {
+    const response = await Api.UpdateRole(client.id);
+    logout();
+    navigate(HOME);
+  }
 
   const fetchUpdatedClient = async () => {
     const response = await Api.getClient();
@@ -214,7 +225,10 @@ export default function ClientSpace() {
             </div>
             <div className="col-span-4 sm:col-span-9">
               <div className="bg-white rounded-lg p-6">
-                <h2 className="text-xl font-bold my-12 ">All My Requests</h2>
+                <div className="flex justify-between">
+                  <h2 className="text-xl font-bold my-12 ">All My Requests</h2>
+                  <button type="button" onClick={updateRole} class="text-slate-800 h-full bg-gradient-to-br from-yellow-500 to-yellow-400 hover:bg-gradient-to-bl focus:ring-0 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Become A Worker!</button>
+                </div>
 
                 {client.requests.length > 0 ? (
                   client.requests.map((request) => (
@@ -243,7 +257,12 @@ export default function ClientSpace() {
                           </span>
                         )}
 
-                        { request.status === 1 && <CancelRequestModal fetchUpdatedClient={fetchUpdatedClient} requestid = {request.id} /> }
+                        {request.status === 1 && (
+                          <CancelRequestModal
+                            fetchUpdatedClient={fetchUpdatedClient}
+                            requestid={request.id}
+                          />
+                        )}
                       </div>
                       <hr className="my-6 border-t border-gray-300" />
                     </div>
@@ -263,7 +282,7 @@ export default function ClientSpace() {
                     <div className="mb-6" key={review.id}>
                       <div className="flex justify-between flex-wrap gap-2 w-full">
                         <span className="text-gray-700 font-bold">
-                          {review.stars}
+                          {review.stars} STARS
                         </span>
                         <p>
                           <span className="text-gray-700 mr-2">
