@@ -16,7 +16,8 @@ class Offer extends Model
         'end_date',
         'hourly_rate',
         'client_id',
-        'worker_id'
+        'worker_id',
+        'cancelled'
     ];
 
     public function client()

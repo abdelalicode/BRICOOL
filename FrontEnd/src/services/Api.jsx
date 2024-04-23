@@ -48,12 +48,31 @@ const Api = {
     return await axiosClient.get("/api/workers");
   },
 
+   
+  getRequests: async () => {
+    return await axiosClient.get("/api/request");
+  },
+
+  getWorkerOffers: async () => {
+    return await axiosClient.get("/api/workeroffers");
+  },
+
+  
+
+  TakeRequest: async (id) => {
+    return await axiosClient.put("/api/takerequest", {id});
+  },
+
   getClient: async () => {
     return await axiosClient.get(`/api/client/`);
   },
 
   SendRequestJob: async (city, description) => {
       return await axiosClient.post("api/request", {city, description})
+  },
+
+  AddOffer: async (title, description , start_date, end_date, hourly_rate) => {
+    return await axiosClient.post("api/offer", {title, description , start_date, end_date, hourly_rate})
   },
 
   SendReview: async (stars, content, worker_id) => {
@@ -75,22 +94,11 @@ const Api = {
   cancelRequest: async (id) => {
     return await axiosClient.put("api/request/" + id)
   },
-  // getTransaction : async () => {
-  //     const sentTransResponse = await axiosClient.get("api/senttrans");
-  //     // console.log(sentTransResponse.data);
 
-  //     const receivedTransResponse = await axiosClient.get(
-  //         "api/receivedtrans"
-  //     );
-  //     // console.log(receivedTransResponse.data);
-
-  //     const AllTransactions = {
-  //         sentTransactions: sentTransResponse.data,
-  //         receivedTransactions: receivedTransResponse.data,
-  //     };
-
-  //     return AllTransactions
-  // },
+  cancelOffer: async (id) => {
+    return await axiosClient.put("api/offer/" + id)
+  },
+  
   getJobs: async () => {
     return await axiosClient.get("api/job");
   },
@@ -106,6 +114,8 @@ const Api = {
   UpdateProfile: async (firstname, lastname, email) => {
     return await axiosClient.put("/api/update", { firstname, lastname, email });
   },
+
+
 };
 
 export default Api;

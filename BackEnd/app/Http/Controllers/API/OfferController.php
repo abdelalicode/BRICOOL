@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Offer;
 use App\Models\Worker;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OfferController extends Controller
 {
@@ -14,7 +15,7 @@ class OfferController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -22,7 +23,24 @@ class OfferController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+            'hourly_rate' => 'required|numeric|min:1',
+        ]);
+
+        $validated['worker_id'] = Auth::user()->id;
+
+        $offer = Offer::create($validated);
+    
+        return response()->json(['offer' => $offer], 200);
+    }
+
+    public function WorkerOffers()
+    {
+        return  Offer::where('worker_id', Auth::user()->id)->with('client')->get();
     }
 
     /**
@@ -58,7 +76,7 @@ class OfferController extends Controller
      */
     public function update(Request $request, Offer $offer)
     {
-        //
+        return $offer->update(['cancelled' => 1]);
     }
 
     /**

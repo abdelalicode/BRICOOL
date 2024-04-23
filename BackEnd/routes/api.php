@@ -34,15 +34,23 @@ Route::middleware('auth:sanctum')->post('logout', [AuthController::class, 'logou
 Route::put('update', [AuthController::class, 'updateProfile']);
 
 Route::resource('job', JobController::class);
+
 Route::resource('request', RequestController::class);
+Route::put('takerequest', [RequestController::class, 'TakeRequest']);
+
+
 Route::resource('review', ReviewController::class);
+
 Route::get('/cities', [HomeController::class, 'getCities']);
 Route::get('/worker/{id}', [HomeController::class, 'getWorker']);
 Route::get('/workers', [HomeController::class, 'getAllWorkers']);
 Route::middleware('auth:sanctum')->get('/client', [HomeController::class, 'getClient']);
+
+Route::resource('offer', OfferController::class);
 Route::post('/offersby', [OfferController::class, 'filterOffers']);
 Route::get('/showbycity/{id}', [OfferController::class, 'showByCity']);
 Route::get('/showbyjob/{id}', [OfferController::class, 'showByJob']);
+Route::get('/workeroffers', [OfferController::class, 'WorkerOffers']);
 
 Route::put('address', [AuthController::class, 'updateAddress']);
 Route::put('phone', [AuthController::class, 'updatePhone']);
