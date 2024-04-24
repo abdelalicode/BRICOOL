@@ -6,6 +6,7 @@ use App\Http\Controllers\API\BaseController;
 use App\Http\Resources\UserResource;
 use App\Models\Client;
 use App\Models\User;
+use App\Models\Worker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -157,4 +158,35 @@ class AuthController extends BaseController
         $user->tokens()->delete();
         return $this->sendResponse([], 'User logout successfully.');
     }
+
+    public function getAuthWorker()
+    {
+        return Worker::where('id', Auth::user()->id)->with('job')->with('city')->first();
+    }
+
+    public function updateWorkerProfile(Request $request, $id)
+{
+    try {
+        $user = Worker::find($id);
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        $user->update([
+            'city_id' => $request->city_id,
+            'job_id' => $request->job_id,
+        ]);
+
+        return response()->json([
+            'message' => 'User profile updated successfully'
+        ], 200);
+    } catch (\Exception $e) {
+        return response()->json([
+            'message' => 'An error occurred while updating user profile',
+            'error' => $e->getMessage()
+        ], 500);
+    }
+}
+
 }

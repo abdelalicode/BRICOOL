@@ -20,6 +20,7 @@ import ClientSpace from "../pages/ClientSpace";
 import Workers from "../pages/Workers";
 import WorkerHome from "../pages/Worker/WorkerHome";
 import WorkerDashboardLayout from "../layouts/Worker/WorkerDashboardLayout";
+import ClientsProfile from "../pages/Worker/ClientsProfile";
 
 export const HOME = "/";
 export const ADMINHOME = "/admin";
@@ -34,6 +35,7 @@ export const WORKERS = "/workers";
 export const OFFERBYJOBS = "/jobs/:id";
 export const OFFERBYCITIES = "/cities/:id";
 export const WORKERPROFILE = "/worker/:id";
+export const CLIENTSPROFILE = "/clienttoworker/:id";
 export const CLIENTSPACE = "/espaceclient";
 
 export const router = createBrowserRouter([
@@ -116,6 +118,10 @@ export const router = createBrowserRouter([
       {
         path: WORKERHOME,
         element: <WorkerHome />,
+      },
+      {
+        path: CLIENTSPROFILE,
+        element: <ClientsProfile />,
       },
     ],
   },

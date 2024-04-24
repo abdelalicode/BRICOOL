@@ -79,6 +79,12 @@ class OfferController extends Controller
         return $offer->update(['cancelled' => 1]);
     }
 
+    public function enroll($id)
+    {
+        $offer = Offer::find($id);
+        return $offer->update(['client_id' => Auth::user()->id]);
+    }
+
     /**
      * Remove the specified resource from storage.
      */

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../App.css";
 import { Link, useParams } from "react-router-dom";
 import Api from "./../services/Api";
+import EnrollOfferModal from "../components/Home/EnrollOfferModal";
 
 export default function OfferByJobs() {
   const [offers, setOffers] = useState([]);
@@ -16,6 +17,11 @@ export default function OfferByJobs() {
     };
     fetchData();
   }, [id]);
+
+  const fetchOffers = async () => {
+    const response = await Api.OffersByJob(id);
+    setOffers(response.data);
+  };
 
   if (loading) {
     return <div className="mx-auto mt-24 spinner"></div>;
@@ -38,11 +44,16 @@ export default function OfferByJobs() {
                 <div className="p-6">
                   <div>
                     <div className="flex justify-between items-center">
-                      <Link to={`/worker/${offer.worker.id}`}>
-                        <span className="text-xs font-medium text-blue-600 uppercase dark:text-blue-400">
-                          Enroll Offer
+                    {offer.client_id != null ? (
+                        <span className="bg-pink-100 text-pink-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300">
+                          This Offer Is Enrolled
                         </span>
-                      </Link>
+                      ) : (
+                        <EnrollOfferModal
+                          offerId={offer.id}
+                          fetchOffers={fetchOffers}
+                        />
+                      )}
                       <span className="text-xs font-medium text-pink-800 uppercase dark:text-blue-400">
                         Hourly Rate: {offer.hourly_rate}
                       </span>
@@ -77,8 +88,10 @@ export default function OfferByJobs() {
                         </Link>
                       </div>
                       <span className="mx-1 text-xs text-gray-600 dark:text-gray-300">
-                        AVAILABLE FROM {offer.start_date} <br /> TO{" "}
-                        {offer.end_date}
+                        {new Date(offer.end_date) < new Date() ? <span class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">Expired</span>
+ : <span> AVAILABLE FROM {offer.start_date} <br /> TO{" "}
+                        {offer.end_date} </span>}
+                        
                       </span>
                     </div>
                   </div>

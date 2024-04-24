@@ -5,6 +5,7 @@ import { Badge } from "flowbite-react";
 import { AddOffer } from "./AddOffer";
 import { useUserContext } from "../../context/UserContext";
 import CancelOfferModal from "./CancelOfferModal";
+import { Link } from "react-router-dom";
 
 export default function Offers() {
   const [workerOffers, setWorkerOffers] = useState([]);
@@ -18,12 +19,10 @@ export default function Offers() {
     fetchWorkerOffers();
   }, []);
 
-  console.log(workerOffers);
 
   const fetchUpdatedOffers = async () => {
     const response = await Api.getWorkerOffers();
     setWorkerOffers(response.data);
-    console.log(user);
   };
 
   return (
@@ -36,20 +35,26 @@ export default function Offers() {
             className="p-4 w-full sm:w-1/2 mb-4 text-sm text-red-800 rounded-md bg-red-50 dark:bg-gray-800 dark:text-red-400"
             role="alert"
           >
-            <span className="font-medium">Info Needed!</span> Add Your City and Job
-            To Your Profile Section
+            <span className="font-medium">Info Needed!</span> Add Your City and
+            Job To Your Profile Section
           </div>
         )}
         <table className="w-full text-sm text-left rtl:text-right text-white dark:text-white">
           <thead className="text-xs text-white uppercase dark:text-white">
             <tr className="border-b border-8 border-slate-800 dark:border-gray-700">
-              <th scope="col" className="px-3 py-3 bg-slate-500 dark:bg-slate-800">
+              <th
+                scope="col"
+                className="px-3 py-3 bg-slate-500 dark:bg-slate-800"
+              >
                 Title
               </th>
               <th scope="col" className="px-3 py-3 bg-slate-600">
                 Description
               </th>
-              <th scope="col" className="px-3 py-3 bg-slate-500 dark:bg-slate-700">
+              <th
+                scope="col"
+                className="px-3 py-3 bg-slate-500 dark:bg-slate-700"
+              >
                 Start Date
               </th>
               <th scope="col" className="px-3 py-3 bg-slate-600">
@@ -69,7 +74,10 @@ export default function Offers() {
           <tbody>
             {workerOffers.length > 0 ? (
               workerOffers.map((offer, key) => (
-                <tr key={offer.id} className="border-b border-8 border-slate-800 dark:border-gray-700">
+                <tr
+                  key={offer.id}
+                  className="border-b border-8 border-slate-800 dark:border-gray-700"
+                >
                   <th
                     scope="row"
                     className="px-6 py-4 font-medium text-white whitespace-nowrap bg-slate-600 dark:text-white dark:bg-slate-800"
@@ -93,21 +101,27 @@ export default function Offers() {
                     {offer.hourly_rate}
                   </td>
                   <td className="px-3 py-4 bg-slate-700">
-                    {offer.cancelled
-                      ? "Cancelled"
-                      : offer.client_id != null
-                      ? "Taken By " +
-                        offer.client.firstname +
-                        " " +
-                        offer.client.lastname
-                      : "Not Enrolled Yet"}
+                    {offer.cancelled ? (
+                      "Cancelled"
+                    ) : offer.client_id != null ? (
+                      <span>
+                        Taken By{" "}
+                        <Link to={`/clienttoworker/${offer.client.id}`}>
+                          {offer.client.firstname} {offer.client.lastname}
+                        </Link>
+                      </span>
+                    ) : (
+                      "Not Enrolled Yet"
+                    )}
                   </td>
+
                   <td className="px-3 py-4 bg-slate-600">
-                  {!offer.cancelled &&  <CancelOfferModal
-                            fetchUpdatedOffers={fetchUpdatedOffers}
-                            offerid={offer.id}
-                          />}      
-                  
+                    {!offer.cancelled && (
+                      <CancelOfferModal
+                        fetchUpdatedOffers={fetchUpdatedOffers}
+                        offerid={offer.id}
+                      />
+                    )}
                   </td>
                 </tr>
               ))

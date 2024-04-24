@@ -21,8 +21,6 @@ export default function ClientsRequests() {
   }, []);
 
 
-console.log(user);
-
   const TakeRequest = async (requestId) => {
       const response = await Api.TakeRequest(requestId);
       fetchUpdatedRequests();
@@ -84,7 +82,7 @@ console.log(user);
               />
             </svg>
             
-          </Button> : <span class="bg-red-100 w-2/3 text-center text-red-800 text-xs font-medium me-2 px-2.5 py-1 rounded dark:bg-red-900 dark:text-red-300">{user.id === request.worker_id ? "Request Taken By You" : "Already Taken By A Worker"}</span>
+          </Button> : <span className="bg-red-100 w-2/3 text-center text-red-800 text-xs font-medium me-2 px-2.5 py-1 rounded dark:bg-red-900 dark:text-red-300">{user.id === request.worker_id ? "Request Taken By You" : "Already Taken By A Worker"}</span>
 
            }
         </Card>

@@ -44,6 +44,10 @@ const Api = {
     return await axiosClient.get(`/api/worker/${id}`);
   },
 
+  getClientToWorker: async (id) => {
+    return await axiosClient.get(`/api/clienttoworker/${id}`);
+  },
+
   getWorkers: async () => {
     return await axiosClient.get("/api/workers");
   },
@@ -65,6 +69,14 @@ const Api = {
 
   getClient: async () => {
     return await axiosClient.get(`/api/client/`);
+  },
+
+  getAuthWorker : async () => {
+    return await axiosClient.get("/api/authworker/");
+  },
+
+  updateWorkerProfile: async (userId, city_id, job_id) => {
+    return await axiosClient.put(`/api/user/${userId}`, { city_id, job_id});
   },
 
   SendRequestJob: async (city, description) => {
@@ -97,6 +109,10 @@ const Api = {
 
   cancelOffer: async (id) => {
     return await axiosClient.put("api/offer/" + id)
+  },
+
+  enrollOffer: async (id) => {
+    return await axiosClient.put("api/enrolloffer/" + id)
   },
   
   getJobs: async () => {

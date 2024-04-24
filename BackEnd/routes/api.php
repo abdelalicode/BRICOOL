@@ -31,6 +31,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->post('logout', [AuthController::class, 'logout']);
+Route::get('authworker/', [AuthController::class, 'getAuthWorker']);
 Route::put('update', [AuthController::class, 'updateProfile']);
 
 Route::resource('job', JobController::class);
@@ -40,14 +41,20 @@ Route::put('takerequest', [RequestController::class, 'TakeRequest']);
 
 
 Route::resource('review', ReviewController::class);
+Route::put('/user/{id}', [AuthController::class, 'updateWorkerProfile']);
+
+
+
 
 Route::get('/cities', [HomeController::class, 'getCities']);
 Route::get('/worker/{id}', [HomeController::class, 'getWorker']);
+Route::get('/clienttoworker/{id}', [HomeController::class, 'getClienttoWorker']);
 Route::get('/workers', [HomeController::class, 'getAllWorkers']);
 Route::middleware('auth:sanctum')->get('/client', [HomeController::class, 'getClient']);
 
 Route::resource('offer', OfferController::class);
 Route::post('/offersby', [OfferController::class, 'filterOffers']);
+Route::put('/enrolloffer/{id}', [OfferController::class, 'enroll']);
 Route::get('/showbycity/{id}', [OfferController::class, 'showByCity']);
 Route::get('/showbyjob/{id}', [OfferController::class, 'showByJob']);
 Route::get('/workeroffers', [OfferController::class, 'WorkerOffers']);

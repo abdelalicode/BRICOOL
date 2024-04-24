@@ -24,6 +24,11 @@ class HomeController extends Controller
         ->with('job')->with('city')->with('reviewsAsWorker.client')->with('workerOffers')->first();
     }
 
+    public function getClienttoWorker($id)
+    {
+        return Client::where('id', $id)->first();
+    }
+
     public function getClient()
     {
         return Client::where('id', Auth()->user()->id)

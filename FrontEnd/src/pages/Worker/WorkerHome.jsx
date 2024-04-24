@@ -3,11 +3,8 @@ import "../../App.css"
 
 export default function WorkerHome() {
   return (
-    <div >
-        
-
-
-
+    <div>
+      
     </div>
   )
 }
