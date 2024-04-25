@@ -15,7 +15,7 @@ class RequestController extends BaseController
      */
     public function index()
     {
-        //
+        return response()->json(RequestModel::where('status', 1)->with('client')->with('worker')->get());
     }
 
     /**
@@ -29,7 +29,7 @@ class RequestController extends BaseController
         ]);
 
         $validated['client_id'] = Auth::user()->id;
-        
+
         try {
             $jobrequest = RequestModel::create($validated);;
             $success['jobrequest'] =  $jobrequest;
@@ -52,9 +52,28 @@ class RequestController extends BaseController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, RequestModel $requestmodel)
+    public function update(Request $request,  $id)
     {
-        //
+        $requestModel = RequestModel::findOrFail($id);
+        return $requestModel->update(['status' => 0]);
+    }
+
+    public function TakeRequest(Request $request)
+    {
+        $worker_id = Auth::user()->id;
+
+        try {
+            $requestModel = RequestModel::findOrFail($request->id);
+            if ($requestModel->worker_id === null) {
+                $requestModel->update(['worker_id' => $worker_id]);
+                return response()->json(['message' => 'The request taken successfully'], 200);
+            } else {
+                return response()->json(['message' => 'Request already taken by another worker'], 200);
+            }
+            
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to take request'], 500);
+        }
     }
 
     /**

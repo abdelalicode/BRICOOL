@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Offer extends Model
+class Offer extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory , InteractsWithMedia;
 
     protected $fillable = [
         'title',
@@ -16,7 +18,8 @@ class Offer extends Model
         'end_date',
         'hourly_rate',
         'client_id',
-        'worker_id'
+        'worker_id',
+        'cancelled'
     ];
 
     public function client()

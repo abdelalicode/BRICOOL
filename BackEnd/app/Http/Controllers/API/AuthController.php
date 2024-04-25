@@ -4,7 +4,9 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\API\BaseController;
 use App\Http\Resources\UserResource;
+use App\Models\Client;
 use App\Models\User;
+use App\Models\Worker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -81,11 +83,38 @@ class AuthController extends BaseController
             $user = Auth::user();
             $success['token'] =  $user->createToken('MyApp')->plainTextToken;
             $success['user'] =  $user;
-            
+
             return $this->sendResponse($success, 'User logged in successfully.');
         }
     }
 
+    public function updateAddress(Request $request)
+    {
+        $validated = $request->validate([
+            'id' => 'required',
+            'address' => 'required'
+        ]);
+
+        if ($validated['id'] === Auth::user()->id) {
+            $user = Client::find($validated['id']);
+            $user->update($validated);
+        }
+        return $this->sendResponse($user, 'Address updated successfully.');
+    }
+
+    public function updatePhone(Request $request)
+    {
+        $validated = $request->validate([
+            'id' => 'required',
+            'phone' => 'required'
+        ]);
+
+        if ($validated['id'] === Auth::user()->id) {
+            $user = Client::find($validated['id']);
+            $user->update($validated);
+        }
+        return $this->sendResponse($user, 'Phone updated successfully.');
+    }
 
     public function updateProfile(Request $request)
     {
@@ -122,11 +151,48 @@ class AuthController extends BaseController
 
     public function logout(Request $request)
     {
-
-
         $user = auth()->user();
         // $user->tokens()->where('id', $user->currentAccessToken()->id)->delete();
-        $user->currentAccessToken()->delete();
+        $user->tokens()->delete();
         return $this->sendResponse([], 'User logout successfully.');
     }
+
+    public function getAuthWorker()
+    {
+        $worker =  Worker::where('id', Auth::user()->id)->with('job')->with('city')->first();
+
+        if ($worker) {
+            $profileImageUrl = $worker->getFirstMediaUrl('avatars');
+            $worker->profile_image_url = $profileImageUrl;
+        }
+
+        return $worker;
+    }
+
+    public function updateWorkerProfile(Request $request, $id)
+    {
+        try {
+            $user = Worker::find($id);
+
+            if (!$user) {
+                return response()->json(['message' => 'User not found'], 404);
+            }
+
+            $user->update([
+                'city_id' => $request->city_id,
+                'job_id' => $request->job_id,
+            ]);
+
+            return response()->json([
+                'message' => 'User profile updated successfully'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'An error occurred while updating user profile',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    
 }

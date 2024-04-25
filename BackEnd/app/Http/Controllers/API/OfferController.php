@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Offer;
 use App\Models\Worker;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OfferController extends Controller
 {
@@ -14,7 +15,7 @@ class OfferController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -22,7 +23,25 @@ class OfferController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+            'hourly_rate' => 'required|numeric|min:1',
+        ]);
+
+        $validated['worker_id'] = Auth::user()->id;
+
+        $offer = Offer::create($validated);
+        $offer->addMediaFromRequest('image')->toMediaCollection('offersimage');
+    
+        return response()->json(['offer' => $offer], 200);
+    }
+
+    public function WorkerOffers()
+    {
+        return  Offer::where('worker_id', Auth::user()->id)->with('client')->get();
     }
 
     /**
@@ -33,16 +52,7 @@ class OfferController extends Controller
         //
     }
 
-    // public function showByCity($id)
-    // {
-    //     $workers = Worker::where('city_id', $id)->with('workerOffers')->get();
 
-    //     $allOffers = $workers->flatMap(function ($worker) {
-    //         return $worker->workerOffers;
-    //     });
-
-    //     return response()->json($allOffers);
-    // }
 
     public function showByCity($id)
     {
@@ -50,18 +60,34 @@ class OfferController extends Controller
             $query->where('city_id', $id);
         })->with('worker')->get();
     
-        return response()->json($offers);
+        $offersWithMediaUrls = $offers->map(function ($offer) {
+             $mediaUrl = $offer->getFirstMediaUrl('offersimage');
+            
+             $offerData = $offer->toArray();
+            $offerData['media_url'] = $mediaUrl;
+    
+            return $offerData;
+        });
+    
+        return response()->json($offersWithMediaUrls);
     }
 
     public function showByJob($id)
     {
-        $workers = Worker::where('job_id', $id)->with('workerOffers')->get();
-
-        $allOffers = $workers->flatMap(function ($worker) {
-            return $worker->workerOffers;
-        });
-
-        return response()->json($allOffers);
+        $offers = Offer::whereHas('worker', function ($query) use ($id) {
+            $query->where('job_id', $id);
+        })->with('worker')->get();
+    
+        $offersWithMediaUrls = $offers->map(function ($offer) {
+            $mediaUrl = $offer->getFirstMediaUrl('offersimage');
+           
+            $offerData = $offer->toArray();
+           $offerData['media_url'] = $mediaUrl;
+   
+           return $offerData;
+       });
+   
+       return response()->json($offersWithMediaUrls);
     }
 
     /**
@@ -69,7 +95,13 @@ class OfferController extends Controller
      */
     public function update(Request $request, Offer $offer)
     {
-        //
+        return $offer->update(['cancelled' => 1]);
+    }
+
+    public function enroll($id)
+    {
+        $offer = Offer::find($id);
+        return $offer->update(['client_id' => Auth::user()->id]);
     }
 
     /**

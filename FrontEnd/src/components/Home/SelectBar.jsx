@@ -7,13 +7,12 @@ import Api from "./../../services/Api";
 export default function () {
 
   const navigate = useNavigate();
+  const [loading , setLoading] = useState(true)
 
 
   const {
     cities,
     jobs,
-    loading,
-    setLoading,
     selectedCity,
     setSelectedCity,
     selectedJob,
@@ -45,7 +44,7 @@ export default function () {
   const offersby = async () => {
     const data = await Api.filterOffers(selectedCity, selectedJob, selectedDate)
       setFilteredOffers(data.data);
-      navigate("/filteredoffers");
+      setLoading(false)
   };
 
 

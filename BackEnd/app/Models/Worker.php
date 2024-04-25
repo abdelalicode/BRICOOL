@@ -11,6 +11,8 @@ class Worker extends User
 
     protected $fillable = [
         'available',
+        'city_id',
+        'job_id'
     ];
 
     protected $table = 'users';

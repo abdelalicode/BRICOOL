@@ -81,7 +81,7 @@ export default function ClientSignUp() {
     };
 
     return (
-        <div className="mt-24 mx-96 space-y-4">
+        <div className="mt-24 mx-12 sm:mx-48  md:mx-96 space-y-4">
             <h1 className="font-semibold text-3xl">SIGN UP FORM</h1>
             {show && (
                 <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4" role="alert">

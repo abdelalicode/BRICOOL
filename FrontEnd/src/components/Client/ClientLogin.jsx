@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { axiosClient } from "../../api/axios";
 import { useNavigate } from "react-router";
-import { ADMINHOME, HOME } from "./../../router/index";
+import { ADMINHOME, HOME, WORKERHOME } from "./../../router/index";
 import { useUserContext } from "../../context/UserContext";
 import { Link } from 'react-router-dom';
 
@@ -32,7 +32,7 @@ export default function ClientLogin() {
         resolver: zodResolver(formSchema),
         defaultValues: {
             email: "abdelali@gmail.com",
-            password: "123456789",
+            password: "123456",
         },
     });
 
@@ -45,11 +45,17 @@ export default function ClientLogin() {
                 
                 if (value.status === 200) {
                     setAuthenticated(true);
-                    setUser(value.data.data);
-                    window.localStorage.setItem('USER', value.data.data.user)
+                    setUser(value.data.data.user);
+                    console.log(value.data.data.user);
+                    window.localStorage.setItem('token', value.data.data.token)
+                    window.localStorage.setItem('user',JSON.stringify(value.data.data.user))
                     if(value.data.data.user.role_id === 3)
                     {
                         navigate(HOME);
+                    }
+                    else if (value.data.data.user.role_id === 2)
+                    {
+                        navigate(WORKERHOME);
                     }
                     else if (value.data.data.user.role_id === 1)
                     {
@@ -59,7 +65,6 @@ export default function ClientLogin() {
                 }
             })
             .catch(({ response }) => {
-                // console.log(response.data.data.error);
                 form.setError("globalError", {
                     message: response.data.data.error,
                 });
@@ -70,7 +75,7 @@ export default function ClientLogin() {
     /****/
 
     return (
-        <div className="mt-24 mx-96 space-y-4">
+        <div className="mt-24 mx-12 sm:mx-48  md:mx-96 space-y-4">
             <h1 className="font-semibold text-3xl">LOGIN FORM</h1>
             <Form {...form}>
                 <form

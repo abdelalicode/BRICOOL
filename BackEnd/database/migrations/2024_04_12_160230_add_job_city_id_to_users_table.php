@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->foreignIdFor(
                 Job::class
-            )->constrained()->nullable();
+            )->nullable()->constrained();
             $table->foreignIdFor(
                 City::class
-            )->constrained()->nullable();
+            )->nullable()->constrained();
         });
     }
 
