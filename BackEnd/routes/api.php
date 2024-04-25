@@ -39,12 +39,8 @@ Route::resource('job', JobController::class);
 Route::resource('request', RequestController::class);
 Route::put('takerequest', [RequestController::class, 'TakeRequest']);
 
-
 Route::resource('review', ReviewController::class);
 Route::put('/user/{id}', [AuthController::class, 'updateWorkerProfile']);
-
-
-
 
 Route::get('/cities', [HomeController::class, 'getCities']);
 Route::get('/worker/{id}', [HomeController::class, 'getWorker']);
@@ -52,7 +48,8 @@ Route::get('/clienttoworker/{id}', [HomeController::class, 'getClienttoWorker'])
 Route::get('/workers', [HomeController::class, 'getAllWorkers']);
 Route::middleware('auth:sanctum')->get('/client', [HomeController::class, 'getClient']);
 
-Route::resource('offer', OfferController::class);
+Route::resource('offer', OfferController::class)->middleware(['auth:sanctum','isWorker']);
+
 Route::post('/offersby', [OfferController::class, 'filterOffers']);
 Route::put('/enrolloffer/{id}', [OfferController::class, 'enroll']);
 Route::get('/showbycity/{id}', [OfferController::class, 'showByCity']);
@@ -61,4 +58,7 @@ Route::get('/workeroffers', [OfferController::class, 'WorkerOffers']);
 
 Route::put('address', [AuthController::class, 'updateAddress']);
 Route::put('phone', [AuthController::class, 'updatePhone']);
+
+Route::post('updateprofileavatar', [HomeController::class, 'updateProfileAvatar']);
+
 Route::put('role', [RoleController::class, 'update']);

@@ -32,7 +32,7 @@ export default function ClientLogin() {
         resolver: zodResolver(formSchema),
         defaultValues: {
             email: "abdelali@gmail.com",
-            password: "123456789",
+            password: "123456",
         },
     });
 
@@ -75,7 +75,7 @@ export default function ClientLogin() {
     /****/
 
     return (
-        <div className="mt-24 mx-96 space-y-4">
+        <div className="mt-24 mx-12 sm:mx-48  md:mx-96 space-y-4">
             <h1 className="font-semibold text-3xl">LOGIN FORM</h1>
             <Form {...form}>
                 <form

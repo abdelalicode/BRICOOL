@@ -34,6 +34,7 @@ class OfferController extends Controller
         $validated['worker_id'] = Auth::user()->id;
 
         $offer = Offer::create($validated);
+        $offer->addMediaFromRequest('image')->toMediaCollection('offersimage');
     
         return response()->json(['offer' => $offer], 200);
     }
@@ -59,7 +60,16 @@ class OfferController extends Controller
             $query->where('city_id', $id);
         })->with('worker')->get();
     
-        return response()->json($offers);
+        $offersWithMediaUrls = $offers->map(function ($offer) {
+             $mediaUrl = $offer->getFirstMediaUrl('offersimage');
+            
+             $offerData = $offer->toArray();
+            $offerData['media_url'] = $mediaUrl;
+    
+            return $offerData;
+        });
+    
+        return response()->json($offersWithMediaUrls);
     }
 
     public function showByJob($id)
@@ -68,7 +78,16 @@ class OfferController extends Controller
             $query->where('job_id', $id);
         })->with('worker')->get();
     
-        return response()->json($offers);
+        $offersWithMediaUrls = $offers->map(function ($offer) {
+            $mediaUrl = $offer->getFirstMediaUrl('offersimage');
+           
+            $offerData = $offer->toArray();
+           $offerData['media_url'] = $mediaUrl;
+   
+           return $offerData;
+       });
+   
+       return response()->json($offersWithMediaUrls);
     }
 
     /**

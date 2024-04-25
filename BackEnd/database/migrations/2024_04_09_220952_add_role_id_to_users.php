@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->foreignIdFor(
                 Role::class
-            )->constrained();
+            )->default(3)->constrained();
         });
     }
 

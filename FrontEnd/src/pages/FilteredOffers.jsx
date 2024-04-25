@@ -24,7 +24,7 @@ export default function FilteredOffers() {
 
 
   return (
-    <div className="mx-24">
+    <div className="mx-24 mb-24">
       <SelectBar />
       <h1 className=" my-12 text-4xl font-bold">
         AVAILABLE OFFERS LIST on {selectedDate}

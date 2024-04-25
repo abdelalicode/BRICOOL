@@ -75,7 +75,7 @@ export default function ClientSpace() {
 
   return (
     <div>
-      <div className="">
+      <div className="mb-24">
         <div className="container mx-auto py-8">
           <div className="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
             <div className="col-span-4 sm:col-span-3">

@@ -5,6 +5,7 @@ import "../App.css";
 import { Link, useParams } from "react-router-dom";
 import Api from "../services/Api";
 import EnrollOfferModal from "../components/Home/EnrollOfferModal";
+import MyFooter from "../components/Home/MyFooter";
 
 export default function OfferByCities() {
   const [offers, setOffers] = useState([]);
@@ -41,7 +42,7 @@ export default function OfferByCities() {
               <div className="max-w-md mb-8 overflow-hidden bg-white rounded-lg dark:bg-gray-800">
                 <img
                   className="object-cover w-full h-64 rounded-md"
-                  src="https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                  src={offer.media_url}
                   alt="Article"
                 />
 
@@ -101,10 +102,12 @@ export default function OfferByCities() {
               </div>
             ))
           ) : (
-            <h1>No Offers Available!</h1>
+            <h1 className="mb-96">No Offers Available!</h1>
           )}
         </div>
       </div>
+
+      <MyFooter/>
     </>
   );
 }

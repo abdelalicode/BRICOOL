@@ -3,6 +3,7 @@ import "../App.css";
 import { Link, useParams } from "react-router-dom";
 import Api from "./../services/Api";
 import EnrollOfferModal from "../components/Home/EnrollOfferModal";
+import MyFooter from './../components/Home/MyFooter';
 
 export default function OfferByJobs() {
   const [offers, setOffers] = useState([]);
@@ -37,7 +38,7 @@ export default function OfferByJobs() {
               <div className="max-w-md mb-8 overflow-hidden bg-white rounded-lg dark:bg-gray-800">
                 <img
                   className="object-cover w-full h-64 rounded-md"
-                  src="https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                  src={offer.media_url}
                   alt="Article"
                 />
 
@@ -86,7 +87,7 @@ export default function OfferByJobs() {
                             {offer.worker.firstname} {offer.worker.lastname}
                           </p>
                         </Link>
-                      </div>
+                      </div>  
                       <span className="mx-1 text-xs text-gray-600 dark:text-gray-300">
                         {new Date(offer.end_date) < new Date() ? <span class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">Expired</span>
  : <span> AVAILABLE FROM {offer.start_date} <br /> TO{" "}
@@ -99,10 +100,12 @@ export default function OfferByJobs() {
               </div>
             ))
           ) : (
-            <h1>No Offers Available!</h1>
+            <h1 className="mb-96">No Offers Available!</h1>
           )}
         </div>
       </div>
+
+      <MyFooter/>
     </>
   );
 }

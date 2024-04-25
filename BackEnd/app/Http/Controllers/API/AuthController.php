@@ -83,7 +83,7 @@ class AuthController extends BaseController
             $user = Auth::user();
             $success['token'] =  $user->createToken('MyApp')->plainTextToken;
             $success['user'] =  $user;
-            
+
             return $this->sendResponse($success, 'User logged in successfully.');
         }
     }
@@ -92,11 +92,10 @@ class AuthController extends BaseController
     {
         $validated = $request->validate([
             'id' => 'required',
-            'address' =>'required'
+            'address' => 'required'
         ]);
 
-        if($validated['id'] === Auth::user()->id)
-        {
+        if ($validated['id'] === Auth::user()->id) {
             $user = Client::find($validated['id']);
             $user->update($validated);
         }
@@ -107,11 +106,10 @@ class AuthController extends BaseController
     {
         $validated = $request->validate([
             'id' => 'required',
-            'phone' =>'required'
+            'phone' => 'required'
         ]);
 
-        if($validated['id'] === Auth::user()->id)
-        {
+        if ($validated['id'] === Auth::user()->id) {
             $user = Client::find($validated['id']);
             $user->update($validated);
         }
@@ -161,32 +159,40 @@ class AuthController extends BaseController
 
     public function getAuthWorker()
     {
-        return Worker::where('id', Auth::user()->id)->with('job')->with('city')->first();
+        $worker =  Worker::where('id', Auth::user()->id)->with('job')->with('city')->first();
+
+        if ($worker) {
+            $profileImageUrl = $worker->getFirstMediaUrl('avatars');
+            $worker->profile_image_url = $profileImageUrl;
+        }
+
+        return $worker;
     }
 
     public function updateWorkerProfile(Request $request, $id)
-{
-    try {
-        $user = Worker::find($id);
+    {
+        try {
+            $user = Worker::find($id);
 
-        if (!$user) {
-            return response()->json(['message' => 'User not found'], 404);
+            if (!$user) {
+                return response()->json(['message' => 'User not found'], 404);
+            }
+
+            $user->update([
+                'city_id' => $request->city_id,
+                'job_id' => $request->job_id,
+            ]);
+
+            return response()->json([
+                'message' => 'User profile updated successfully'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'An error occurred while updating user profile',
+                'error' => $e->getMessage()
+            ], 500);
         }
-
-        $user->update([
-            'city_id' => $request->city_id,
-            'job_id' => $request->job_id,
-        ]);
-
-        return response()->json([
-            'message' => 'User profile updated successfully'
-        ], 200);
-    } catch (\Exception $e) {
-        return response()->json([
-            'message' => 'An error occurred while updating user profile',
-            'error' => $e->getMessage()
-        ], 500);
     }
-}
 
+    
 }

@@ -4,6 +4,7 @@ import { useHomeContext } from "../context/HomeContext";
 import "../App.css";
 import { Link } from "react-router-dom";
 import Api from "../services/Api";
+import MyFooter from "../components/Home/MyFooter";
 
 export default function Workers() {
   const [workers, setWorkers] = useState({});
@@ -24,7 +25,8 @@ export default function Workers() {
   console.log(workers);
 
   return (
-    <div className="mt-12">
+    <>
+    <div className="mt-12 mb-24">
       <h1 className="text-center mb-16 m-4 text-4xl">WORKERS NETWORK</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {workers.map((worker) => (
@@ -54,12 +56,15 @@ export default function Workers() {
                   </span>
                 </div>
                 <div class="mt-6 w-fit mx-auto">
-                  <img
-                    src="https://api.lorem.space/image/face?w=120&h=120&hash=bart89fe"
-                    class="rounded-full w-28 "
-                    alt="profile picture"
-                    srcset=""
-                  />
+                {worker.profile_image_url ? (
+                    <img
+                      src={worker.profile_image_url}
+                      className="rounded-full w-28"
+                      alt="profile picture"
+                    />
+                  ) : (
+                    <img width="100" height="100" src="https://img.icons8.com/ios-filled/100/EBEBEB/user-male-circle.png" alt="user-male-circle"/>
+                  )}
                 </div>
 
                 <div class="mt-8 ">
@@ -88,5 +93,7 @@ export default function Workers() {
         ))}
       </div>
     </div>
+    <MyFooter/>
+    </>
   );
 }

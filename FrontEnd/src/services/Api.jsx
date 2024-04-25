@@ -83,8 +83,20 @@ const Api = {
       return await axiosClient.post("api/request", {city, description})
   },
 
-  AddOffer: async (title, description , start_date, end_date, hourly_rate) => {
-    return await axiosClient.post("api/offer", {title, description , start_date, end_date, hourly_rate})
+  AddOffer: async (formData) => {
+    return await axiosClient.post("api/offer", formData , {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+  },
+
+  UpdateProfileAvatar : async (formData) => {
+    return await axiosClient.post("api/updateprofileavatar", formData , {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
   },
 
   SendReview: async (stars, content, worker_id) => {

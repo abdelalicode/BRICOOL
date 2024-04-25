@@ -3,6 +3,7 @@ import { useHomeContext } from "../context/HomeContext";
 import "../App.css";
 import Api from "../services/Api";
 import { Link, useNavigate } from "react-router-dom";
+import MyFooter from "../components/Home/MyFooter";
 
 export default function Cities() {
   const { cities, loading } = useHomeContext();
@@ -17,7 +18,8 @@ export default function Cities() {
     return <div className="mx-auto mt-24 spinner"></div>;
   }
   return (
-    <div className="mt-12">
+    <>
+    <div className="mt-12 mb-24">
       <h1 className="text-center mb-16 m-4 text-4xl">AVAILABLE CITIES</h1>
       <div className="flex flex-wrap gap-4 justify-center">
         {cities.data.map((city, key) => (
@@ -48,5 +50,8 @@ export default function Cities() {
         ))}
       </div>
     </div>
+
+    <MyFooter/>
+    </>
   );
 }

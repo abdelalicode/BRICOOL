@@ -85,15 +85,15 @@ export default function Offers() {
                     {offer.title}
                   </th>
                   <td className="px-3 py-4 bg-slate-700">
-                    {offer.description.slice(0, 50) + "..."}
+                    { offer.description.length > 50 ? offer.description.slice(0, 50) + "..." : offer.description}
                   </td>
                   <td className="px-3 py-4 bg-slate-600 dark:bg-slate-800">
-                    <Badge className="justify-center " color="indigo">
+                    <Badge className="justify-center mx-2" color="indigo">
                       {offer.start_date}
                     </Badge>
                   </td>
                   <td className="px-3 py-4 bg-slate-700">
-                    <Badge className="justify-center " color="warning">
+                    <Badge className="justify-center w-full" color="warning">
                       {offer.end_date}
                     </Badge>
                   </td>

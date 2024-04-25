@@ -10,6 +10,8 @@ import NavTop from "../../components/Home/NavTop";
 import NavTup from "../../components/Home/NavTup";
 import NavBottom from "../../components/Home/NavBottom";
 import "../../App.css";
+import MyFooter from "../../components/Home/MyFooter";
+import Banner from "../../components/Home/Banner";
 
 export default function ClientHomeLayout() {
   const navigate = useNavigate();
@@ -57,6 +59,7 @@ export default function ClientHomeLayout() {
   
 
   return (
+    <>
     <div className={location.pathname === HOME ? "background" : ""}>
       <header>
         <NavTup />
@@ -65,7 +68,9 @@ export default function ClientHomeLayout() {
       <main>
         <Outlet />
       </main>
-      <footer></footer>
     </div>
+    <footer>
+  </footer>
+  </>
   );
 }

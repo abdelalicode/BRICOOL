@@ -72,7 +72,7 @@ export default function ({logout}) {
                 </div>
               ) : (
                 <Link to="/login">
-                  <button className="h-full  bg-white p-[17px] text-sm">
+                  <button className="h-full ml-24 sm:ml-0  bg-white p-[17px] text-sm">
                     LOGIN
                   </button>
                 </Link>

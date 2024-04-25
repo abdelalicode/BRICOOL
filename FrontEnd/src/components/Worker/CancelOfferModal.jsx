@@ -15,7 +15,7 @@ export default function CancelOfferModal({offerid, fetchUpdatedOffers}) {
 
   return (
     <>
-      <Button onClick={() => setOpenModal(true)}>
+      <Button className="py-0" onClick={() => setOpenModal(true)}>
       <img width="24" height="24" src="https://img.icons8.com/fluency/48/cancel.png" alt="cancel"/>
       </Button>
       <Modal show={openModal} size="md" onClose={() => setOpenModal(false)} popup>

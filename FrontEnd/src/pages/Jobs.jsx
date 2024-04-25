@@ -3,6 +3,7 @@ import axios from "axios";
 import { useHomeContext } from "../context/HomeContext";
 import "../App.css";
 import { Link } from "react-router-dom";
+import MyFooter from "../components/Home/MyFooter";
 
 export default function Jobs() {
   const { jobs, loading } = useHomeContext();
@@ -11,7 +12,8 @@ export default function Jobs() {
     return <div className="mx-auto mt-24 spinner"></div>;
   }
   return (
-    <div className="mt-12">
+    <>
+    <div className="mt-12 mb-24 ">
       <h1 className="text-center mb-16 m-4 text-4xl">AVAILABLE JOBS</h1>
       <div className="flex flex-wrap gap-4 justify-center">
         {jobs.data.data.map((job, key) => (
@@ -38,5 +40,8 @@ export default function Jobs() {
         ))}
       </div>
     </div>
+
+    <MyFooter/>
+    </>
   );
 }
