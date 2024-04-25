@@ -21,6 +21,7 @@ import Workers from "../pages/Workers";
 import WorkerHome from "../pages/Worker/WorkerHome";
 import WorkerDashboardLayout from "../layouts/Worker/WorkerDashboardLayout";
 import ClientsProfile from "../pages/Worker/ClientsProfile";
+import HomeGuestLayout from "../layouts/HomeGuestLayout";
 
 export const HOME = "/";
 export const ADMINHOME = "/admin";
@@ -62,8 +63,9 @@ export const router = createBrowserRouter([
       },
     ],
   },
+
   {
-    element: <ClientHomeLayout />,
+    element: <HomeGuestLayout />,
     children: [
       {
         path: HOME,
@@ -94,6 +96,40 @@ export const router = createBrowserRouter([
         path: OFFERBYJOBS,
         element: <OfferByJobs />,
       },
+    ],
+  },
+  {
+    element: <ClientHomeLayout />,
+    children: [
+      // {
+      //   path: HOME,
+      //   element: <Home />,
+      // },
+
+      // {
+      //   path: FILTEREDOFFERS,
+      //   element: <FilteredOffers />,
+      // },
+      // {
+      //   path: JOBS,
+      //   element: <Jobs />,
+      // },
+      // {
+      //   path: CITIES,
+      //   element: <Cities />,
+      // },
+      // {
+      //   path: WORKERS,
+      //   element: <Workers />,
+      // },
+      // {
+      //   path: OFFERBYCITIES,
+      //   element: <OfferByCities />,
+      // },
+      // {
+      //   path: OFFERBYJOBS,
+      //   element: <OfferByJobs />,
+      // },
       {
         path: WORKERPROFILE,
         element: <WorkerProfile />,

@@ -14,11 +14,11 @@ import { HOME } from "../../router";
 export default function WorkerDashboardLayout() {
   const { user, setUser } = useUserContext();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const {
     logout: contextLogout,
   } = useUserContext();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const storedUser = window.localStorage.getItem("user");
@@ -26,6 +26,9 @@ export default function WorkerDashboardLayout() {
       const userObject = JSON.parse(storedUser);
       setUser(userObject);
     }
+
+  
+
   }, []);
 
   const isClientProfileRoute = () => {
@@ -40,6 +43,10 @@ export default function WorkerDashboardLayout() {
     });
   };
 
+  if(user.role_id === 3 )
+  {
+    navigate(HOME);
+  }
 
   return (
     <div className="bg-slate-800 h-full min-h-screen w-screen">

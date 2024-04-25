@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/popover";
 import CancelRequestModal from "../components/Home/CancelRequestModal";
 import { useNavigate } from "react-router-dom";
-import { HOME } from "../router";
+import { HOME, WORKERHOME } from "../router";
 
 export default function ClientSpace() {
   const [client, setClient] = useState({});
@@ -71,6 +71,10 @@ export default function ClientSpace() {
 
   if (loading) {
     return <div className="mx-auto mt-24 spinner"></div>;
+  }
+   if(client.role_id === 2 )
+  {
+    navigate(WORKERHOME);
   }
 
   return (
@@ -227,7 +231,7 @@ export default function ClientSpace() {
               <div className="bg-white rounded-lg p-6">
                 <div className="flex justify-between">
                   <h2 className="text-xl font-bold my-12 ">All My Requests</h2>
-                  <button type="button" onClick={updateRole} class="text-slate-800 h-full bg-gradient-to-br from-yellow-500 to-yellow-400 hover:bg-gradient-to-bl focus:ring-0 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Become A Worker!</button>
+                  <button type="button" onClick={updateRole} className="text-slate-800 h-full bg-gradient-to-br from-yellow-500 to-yellow-400 hover:bg-gradient-to-bl focus:ring-0 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Become A Worker!</button>
                 </div>
 
                 {client.requests.length > 0 ? (

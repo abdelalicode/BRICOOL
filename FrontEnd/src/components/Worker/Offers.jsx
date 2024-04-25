@@ -9,7 +9,8 @@ import { Link } from "react-router-dom";
 
 export default function Offers() {
   const [workerOffers, setWorkerOffers] = useState([]);
-  const { user } = useUserContext();
+  const { user, setUser } = useUserContext();
+  
 
   useEffect(() => {
     const fetchWorkerOffers = async () => {
@@ -24,6 +25,8 @@ export default function Offers() {
     const response = await Api.getWorkerOffers();
     setWorkerOffers(response.data);
   };
+
+ 
 
   return (
     <div>

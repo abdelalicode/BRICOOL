@@ -3,7 +3,7 @@ import { useState } from "react";
 import Api from "../../services/Api";
 import { FileInput} from "flowbite-react";
 
-export function AddOffer(props) {
+export function AddOffer({fetchUpdatedOffers}) {
   const [openModal, setOpenModal] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -36,7 +36,7 @@ export function AddOffer(props) {
     const response = await Api.AddOffer(formData);
 
     onCloseModal();
-    props.fetchUpdatedOffers();
+    fetchUpdatedOffers();
   };
 
   return (

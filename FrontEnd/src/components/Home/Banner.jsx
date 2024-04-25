@@ -162,7 +162,7 @@ export default function Banner() {
         </div>
       </div>
 
-      <div className="w-full bg-slate-600  py-24 px-20 flex justify-between items-center">
+      <div className="w-full bg-[#26303D] bg-opacity-95  py-24 px-20 flex justify-between items-center">
         <p className="text-white">
           {" "}
           <span className="text-4xl font-medium">

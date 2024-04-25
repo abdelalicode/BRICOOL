@@ -4,7 +4,7 @@ import { axiosClient } from "../../api/axios";
 import { useHomeContext } from "../../context/HomeContext";
 import Api from "../../services/Api";
 import { useUserContext } from "../../context/UserContext";
-import { HOME, LOGIN } from "../../router";
+import { HOME, LOGIN, WORKERHOME } from "../../router";
 import { Button } from "@/components/ui/button";
 import NavTop from "../../components/Home/NavTop";
 import NavTup from "../../components/Home/NavTup";
@@ -24,29 +24,9 @@ export default function ClientHomeLayout() {
     setAuthenticated,
     logout: contextLogout,
   } = useUserContext();
-  const context = useUserContext();
   
   const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //     fetchData();
-
-  //     Api.getUser()
-  //         .then(({ data }) => {
-  //             setUser(data);
-  //             if(data.role.name == "admin")
-  //             {
-  //                 navigate('/admin')
-  //             }
-  //             setAuthenticated(true);
-
-  //         })
-  //         .catch((reason) => {
-  //             contextLogout()
-  //             navigate(LOGIN);
-  //         });
-
-  // }, []);
 
 
   const logout = async () => {
@@ -56,7 +36,17 @@ export default function ClientHomeLayout() {
     });
   };
 
+  useEffect(() => {
+    if (!authenticated)
+    {
+        navigate(HOME)
+    }
+
+  }, []);
+
   
+
+ 
 
   return (
     <>

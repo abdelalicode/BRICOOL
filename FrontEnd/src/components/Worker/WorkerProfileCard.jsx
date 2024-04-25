@@ -10,6 +10,7 @@ export default function WorkerProfileCard() {
   const [loading, setLoading] = useState(true);
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedJob, setSelectedJob] = useState("");
+  const {user , setUser} = useUserContext();
 
   const { cities, jobs } = useHomeContext();
 
@@ -35,6 +36,7 @@ export default function WorkerProfileCard() {
     const fetchWorkerData = async () => {
       const response = await Api.getAuthWorker();
       setWorker(response.data);
+      setUser(response.data);
       setLoading(false);
     };
 
