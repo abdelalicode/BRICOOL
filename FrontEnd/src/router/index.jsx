@@ -17,18 +17,25 @@ import OfferByJobs from "../pages/OfferByJobs";
 import WorkerProfile from "../pages/WorkerProfile";
 import RequestJob from "../pages/RequestJob";
 import ClientSpace from "../pages/ClientSpace";
+import Workers from "../pages/Workers";
+import WorkerHome from "../pages/Worker/WorkerHome";
+import WorkerDashboardLayout from "../layouts/Worker/WorkerDashboardLayout";
+import ClientsProfile from "../pages/Worker/ClientsProfile";
 
 export const HOME = "/";
 export const ADMINHOME = "/admin";
+export const WORKERHOME = "/worker";
 export const FILTEREDOFFERS = "/filteredoffers";
 export const REQUESTJOB = "/requestjob";
 export const LOGIN = "/login";
 export const UPDATEPROFILE = "/updateprofile";
 export const JOBS = "/jobs";
 export const CITIES = "/cities";
-export const OFFERBYJOBS = "/jobs:id";
+export const WORKERS = "/workers";
+export const OFFERBYJOBS = "/jobs/:id";
 export const OFFERBYCITIES = "/cities/:id";
 export const WORKERPROFILE = "/worker/:id";
+export const CLIENTSPROFILE = "/clienttoworker/:id";
 export const CLIENTSPACE = "/espaceclient";
 
 export const router = createBrowserRouter([
@@ -76,6 +83,10 @@ export const router = createBrowserRouter([
         element: <Cities />,
       },
       {
+        path: WORKERS,
+        element: <Workers />,
+      },
+      {
         path: OFFERBYCITIES,
         element: <OfferByCities />,
       },
@@ -98,6 +109,19 @@ export const router = createBrowserRouter([
       {
         path: CLIENTSPACE,
         element: <ClientSpace />,
+      },
+    ],
+  },
+  {
+    element: <WorkerDashboardLayout />,
+    children: [
+      {
+        path: WORKERHOME,
+        element: <WorkerHome />,
+      },
+      {
+        path: CLIENTSPROFILE,
+        element: <ClientsProfile />,
       },
     ],
   },

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "../../App.css";
 import { useHomeContext } from "../../context/HomeContext";
 import Api from "./../../services/Api";
+import Banner from "./Banner";
 
 export default function () {
 
@@ -51,9 +52,9 @@ export default function () {
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-4 pl-[200px] pt-[240px]">
-        <div className="... min-h-[956px] mb-12">
-          <div className="bg-[#1B242F] w-1/2  py-2 mb-12 relative">
+      <div className="grid md:grid-cols-1 md:grid-cols-2 gap-4 pl-16 pr-8 sm:pl-[180px] pt-[240px]">
+        <div className="min-h-[750px]">
+          <div className="bg-[#1B242F] w-full md:w-1/2  py-2 mb-12 relative">
             <p className="text-[12px] mx-12 text-white font-medium">
               Your working needs SOLUTION
             </p>
@@ -79,7 +80,7 @@ export default function () {
             perfect match for your needs
           </p>
 
-          <div className="mt-8  text-[12px] min-w-[558px] min-h-[60px] bg-[#D9D9D9] rounded-lg bg-opacity-40 backdrop-blur-xl flex items-center">
+          <div className="mt-8  text-[12px]  md:min-w-[660px] min-h-[60px] bg-[#D9D9D9] rounded-lg bg-opacity-40 backdrop-blur-xl  flex flex-wrap mr-8 md:flex md:items-center">
             <form onSubmit={handleSubmit}>
               <select
                 onChange={handleCityChange}
@@ -127,8 +128,10 @@ export default function () {
           
         </div>
 
-        <div className="... min-h-[956px]"></div>
+
       </div>
+      <Banner/>
+
     </>
   );
 }

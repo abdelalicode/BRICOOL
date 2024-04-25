@@ -5,6 +5,8 @@ use App\Http\Controllers\API\HomeController;
 use App\Http\Controllers\API\JobController;
 use App\Http\Controllers\API\OfferController;
 use App\Http\Controllers\RequestController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TransationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    $user = $request->user()->load('requests', 'role' , 'reviews');
+    $user = $request->user()->load('role');
     return $user;
 });
 
@@ -29,13 +31,34 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->post('logout', [AuthController::class, 'logout']);
+Route::get('authworker/', [AuthController::class, 'getAuthWorker']);
 Route::put('update', [AuthController::class, 'updateProfile']);
 
 Route::resource('job', JobController::class);
+
 Route::resource('request', RequestController::class);
+Route::put('takerequest', [RequestController::class, 'TakeRequest']);
+
+Route::resource('review', ReviewController::class);
+Route::put('/user/{id}', [AuthController::class, 'updateWorkerProfile']);
+
 Route::get('/cities', [HomeController::class, 'getCities']);
 Route::get('/worker/{id}', [HomeController::class, 'getWorker']);
-Route::get('/client', [HomeController::class, 'getClient']);
+Route::get('/clienttoworker/{id}', [HomeController::class, 'getClienttoWorker']);
+Route::get('/workers', [HomeController::class, 'getAllWorkers']);
+Route::middleware('auth:sanctum')->get('/client', [HomeController::class, 'getClient']);
+
+Route::resource('offer', OfferController::class)->middleware(['auth:sanctum','isWorker']);
+
 Route::post('/offersby', [OfferController::class, 'filterOffers']);
+Route::put('/enrolloffer/{id}', [OfferController::class, 'enroll']);
 Route::get('/showbycity/{id}', [OfferController::class, 'showByCity']);
 Route::get('/showbyjob/{id}', [OfferController::class, 'showByJob']);
+Route::get('/workeroffers', [OfferController::class, 'WorkerOffers']);
+
+Route::put('address', [AuthController::class, 'updateAddress']);
+Route::put('phone', [AuthController::class, 'updatePhone']);
+
+Route::post('updateprofileavatar', [HomeController::class, 'updateProfileAvatar']);
+
+Route::put('role', [RoleController::class, 'update']);

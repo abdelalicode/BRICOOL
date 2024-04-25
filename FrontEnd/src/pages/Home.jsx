@@ -3,6 +3,7 @@ import "../../src/App.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import Middle from "../components/Home/Middle";
+import MyFooter from "../components/Home/MyFooter";
 
 export default function Home() {
 
@@ -10,6 +11,8 @@ export default function Home() {
   return (
     <>
       <Middle/>
+
+      <MyFooter/>
     </>
   );
 }

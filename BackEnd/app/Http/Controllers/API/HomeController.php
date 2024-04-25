@@ -21,13 +21,39 @@ class HomeController extends Controller
     public function getWorker($id)
     {
         return Worker::where('id', $id)
-        ->with('job')->with('city')->with('reviewsAsWorker.client')->with('workerOffers')->first();
+            ->with('job')->with('city')->with('reviewsAsWorker.client')->with('workerOffers')->first();
+    }
+
+    public function getClienttoWorker($id)
+    {
+        return Client::where('id', $id)->first();
     }
 
     public function getClient()
     {
         return Client::where('id', Auth()->user()->id)
-        ->with('reviews')->with('requests')->first();
+            ->with('reviews')->with('requests')->first();
     }
 
+
+
+    public function getAllWorkers()
+    {
+        $workers = Worker::orderBy('firstname', 'asc')->where('role_id', 2)->with('job')->get();
+
+        foreach ($workers as $worker) {
+            $profileImageUrl = $worker->getFirstMediaUrl('avatars');
+            $worker->profile_image_url = $profileImageUrl;
+        }
+
+        return $workers;
+    }
+
+
+    public function updateProfileAvatar(Request $request)
+    {
+        $worker = Worker::find($request->id);
+        $worker->addMediaFromRequest('image')->toMediaCollection('avatars');
+        return response()->json(['message' => 'Avatar updated successfully']);
+    }
 }

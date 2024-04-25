@@ -7,8 +7,11 @@ import { useUserContext } from "../../context/UserContext";
 import { HOME, LOGIN } from "../../router";
 import { Button } from "@/components/ui/button";
 import NavTop from "../../components/Home/NavTop";
+import NavTup from "../../components/Home/NavTup";
 import NavBottom from "../../components/Home/NavBottom";
 import "../../App.css";
+import MyFooter from "../../components/Home/MyFooter";
+import Banner from "../../components/Home/Banner";
 
 export default function ClientHomeLayout() {
   const navigate = useNavigate();
@@ -56,16 +59,18 @@ export default function ClientHomeLayout() {
   
 
   return (
+    <>
     <div className={location.pathname === HOME ? "background" : ""}>
       <header>
-        <NavTop />
-
+        <NavTup />
         <NavBottom logout={logout} />
       </header>
       <main>
         <Outlet />
       </main>
-      <footer></footer>
     </div>
+    <footer>
+  </footer>
+  </>
   );
 }

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\API\BaseController;
 use App\Models\Review;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class ReviewController extends Controller
+class ReviewController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +23,23 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'stars' => 'required',
+            'content' => 'required',
+            'worker_id' => 'required'
+        ]);
+
+        $validated['client_id'] = Auth::user()->id;
+        
+        try {
+            $review = Review::create($validated);;
+            $success['review'] =  $review;
+            return $this->sendResponse($success, 'Your review sent successfully.');
+        } catch (QueryException $e) {
+
+            error_log($e->getMessage());
+            return $this->sendError('Failed to send job request. ' . $e->getMessage(), [], 500);
+        }
     }
 
     /**
