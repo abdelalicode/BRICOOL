@@ -5,6 +5,8 @@ import NavTop from "../components/Home/NavTop";
 
 
 export default function Layout() {
+
+
     return (
         <>
             <header>

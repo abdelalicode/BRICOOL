@@ -3,7 +3,7 @@ import { useState } from "react";
 import Api from "../../services/Api";
 import { FileInput} from "flowbite-react";
 
-export function AddOffer(props) {
+export function AddOffer({fetchUpdatedOffers}) {
   const [openModal, setOpenModal] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -34,9 +34,10 @@ export function AddOffer(props) {
     console.log(formData);
 
     const response = await Api.AddOffer(formData);
+    
+    fetchUpdatedOffers();
 
     onCloseModal();
-    props.fetchUpdatedOffers();
   };
 
   return (
@@ -82,6 +83,7 @@ export function AddOffer(props) {
                     value={startDate}
                     onChange={(event) => setStartDate(event.target.value)}
                     placeholder="Select date start"
+                    min={new Date().toISOString().split('T')[0]} 
                   />
                 </div>
                 <div className="my-2">
@@ -93,6 +95,7 @@ export function AddOffer(props) {
                     value={endDate}
                     onChange={(event) => setEndDate(event.target.value)}
                     placeholder="Select date end"
+                    min={new Date().toISOString().split('T')[0]} 
                   />
                 </div>
               </div>

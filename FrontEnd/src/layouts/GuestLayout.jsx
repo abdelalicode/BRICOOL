@@ -11,10 +11,10 @@ export default function GuestLayout() {
   const context = useUserContext();
 
   useEffect(() => {
-    // if (context.authenticated)
-    // {
-    //     navigate(HOME)
-    // }
+    if (context.authenticated)
+    {
+        navigate(HOME)
+    }
   }, []);
   return (
     <>

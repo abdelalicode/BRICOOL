@@ -8,7 +8,7 @@ import ClientHomeLayout from "../layouts/Client/ClientHomeLayout";
 import GuestLayout from "../layouts/GuestLayout";
 import UpdateProfile from "../pages/UpdateProfile";
 import ADminDashboardLayout from "../layouts/Admin/AdminDashboardLayout";
-import AdminHome from "../pages/AdminHome";
+import AdminHome from "../pages/Admin/AdminHome";
 import FilteredOffers from "../pages/FilteredOffers";
 import Jobs from "../pages/Jobs";
 import Cities from "../pages/Cities";
@@ -21,9 +21,12 @@ import Workers from "../pages/Workers";
 import WorkerHome from "../pages/Worker/WorkerHome";
 import WorkerDashboardLayout from "../layouts/Worker/WorkerDashboardLayout";
 import ClientsProfile from "../pages/Worker/ClientsProfile";
+import HomeGuestLayout from "../layouts/HomeGuestLayout";
+import AdminJobs from "../pages/Admin/AdminJobs";
 
 export const HOME = "/";
 export const ADMINHOME = "/admin";
+export const ADMINJOBS = "/admin/jobs";
 export const WORKERHOME = "/worker";
 export const FILTEREDOFFERS = "/filteredoffers";
 export const REQUESTJOB = "/requestjob";
@@ -62,8 +65,9 @@ export const router = createBrowserRouter([
       },
     ],
   },
+
   {
-    element: <ClientHomeLayout />,
+    element: <HomeGuestLayout />,
     children: [
       {
         path: HOME,
@@ -94,6 +98,11 @@ export const router = createBrowserRouter([
         path: OFFERBYJOBS,
         element: <OfferByJobs />,
       },
+    ],
+  },
+  {
+    element: <ClientHomeLayout />,
+    children: [
       {
         path: WORKERPROFILE,
         element: <WorkerProfile />,
@@ -128,6 +137,10 @@ export const router = createBrowserRouter([
   {
     element: <ADminDashboardLayout />,
     children: [
+      {
+        path: ADMINJOBS,
+        element: <AdminJobs />,
+      },
       {
         path: ADMINHOME,
         element: <AdminHome />,

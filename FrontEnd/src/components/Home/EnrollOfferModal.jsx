@@ -2,13 +2,19 @@ import { Button, Modal } from "flowbite-react";
 import { useState } from "react";
 import { FcApproval } from "react-icons/fc";
 import Api from "../../services/Api";
+import { Toaster, toast } from 'sonner'
+        
 
 export default function EnrollOfferModal({ offerId, fetchOffers }) {
   const [openModal, setOpenModal] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
 
-  const handleEnrollOffer = async () => {
-    console.log(offerId);
-    await Api.enrollOffer(offerId).then(setOpenModal(false));
+
+  const handleEnrollOffer = async () => {   
+    const response = await Api.enrollOffer(offerId).then(setOpenModal(false)).catch(({ response }) => {
+      Swal.fire(response.data.message)
+  });
     fetchOffers();
   };
 
@@ -19,6 +25,7 @@ export default function EnrollOfferModal({ offerId, fetchOffers }) {
           Enroll Offer
         </span>
       </Button>
+
       <Modal
         show={openModal}
         size="md"

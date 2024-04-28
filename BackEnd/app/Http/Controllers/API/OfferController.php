@@ -15,7 +15,6 @@ class OfferController extends Controller
      */
     public function index()
     {
-        
     }
 
     /**
@@ -35,7 +34,7 @@ class OfferController extends Controller
 
         $offer = Offer::create($validated);
         $offer->addMediaFromRequest('image')->toMediaCollection('offersimage');
-    
+
         return response()->json(['offer' => $offer], 200);
     }
 
@@ -59,35 +58,37 @@ class OfferController extends Controller
         $offers = Offer::whereHas('worker', function ($query) use ($id) {
             $query->where('city_id', $id);
         })->with('worker')->get();
-    
+
         $offersWithMediaUrls = $offers->map(function ($offer) {
-             $mediaUrl = $offer->getFirstMediaUrl('offersimage');
-            
-             $offerData = $offer->toArray();
+            $mediaUrl = $offer->getFirstMediaUrl('offersimage');
+
+            $workerMediaUrl = $offer->worker->getFirstMediaUrl('avatars');
+
+            $offerData = $offer->toArray();
             $offerData['media_url'] = $mediaUrl;
-    
+            $offerData['worker']['profile_image_url'] = $workerMediaUrl;
+
             return $offerData;
         });
-    
+
         return response()->json($offersWithMediaUrls);
     }
-
     public function showByJob($id)
     {
         $offers = Offer::whereHas('worker', function ($query) use ($id) {
             $query->where('job_id', $id);
         })->with('worker')->get();
-    
+
         $offersWithMediaUrls = $offers->map(function ($offer) {
             $mediaUrl = $offer->getFirstMediaUrl('offersimage');
-           
+
             $offerData = $offer->toArray();
-           $offerData['media_url'] = $mediaUrl;
-   
-           return $offerData;
-       });
-   
-       return response()->json($offersWithMediaUrls);
+            $offerData['media_url'] = $mediaUrl;
+
+            return $offerData;
+        });
+
+        return response()->json($offersWithMediaUrls);
     }
 
     /**
@@ -101,7 +102,11 @@ class OfferController extends Controller
     public function enroll($id)
     {
         $offer = Offer::find($id);
-        return $offer->update(['client_id' => Auth::user()->id]);
+        $offer->update(['client_id' => Auth::user()->id]);
+
+        return response()->json([
+            'message' => 'Offer Enrolled Succesfully'
+        ], 200);
     }
 
     /**
