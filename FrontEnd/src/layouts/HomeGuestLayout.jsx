@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { HOME } from "./../router/index";
+import { HOME, WORKERHOME } from "./../router/index";
 import { useHomeContext } from "../context/HomeContext";
 import { useUserContext } from "../context/UserContext";
 import NavBottom from "../components/Home/NavBottom";
@@ -18,7 +18,6 @@ export default function HomeGuestLayout() {
       setAuthenticated,
       logout: contextLogout,
     } = useUserContext();
-    const context = useUserContext();
     
     const [loading, setLoading] = useState(true);
     
@@ -31,9 +30,9 @@ export default function HomeGuestLayout() {
         navigate(HOME);
       });
     };
-  
-    
-  
+
+
+
     return (
       <>
       <div className={location.pathname === HOME ? "background" : ""}>

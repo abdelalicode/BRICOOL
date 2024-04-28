@@ -4,5 +4,8 @@
   },
   "scripts": {
     "start": ""
+  },
+  "dependencies": {
+    "sonner": "^1.4.41"
   }
 }

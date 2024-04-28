@@ -49,7 +49,9 @@ export default function OfferByCities() {
                 <div className="p-6">
                   <div>
                     <div className="flex justify-between items-center">
-                      {offer.client_id != null ? (
+                      {offer.cancelled ? (
+                        <p className="text-red-500">CANCELLED</p>
+                      ) : offer.client_id != null ? (
                         <span className="bg-pink-100 text-pink-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300">
                           This Offer Is Enrolled
                         </span>
@@ -78,11 +80,8 @@ export default function OfferByCities() {
                   <div className="mt-4">
                     <div className="flex items-center">
                       <div className="flex items-center">
-                        <img
-                          className="object-cover h-10 rounded-full"
-                          src="https://images.unsplash.com/photo-1586287011575-a23134f797f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=48&q=60"
-                          alt="Avatar"
-                        />
+                          <p>Worker: </p>
+                        
                         <Link to={`/worker/${offer.worker.id}`}>
                           <p
                             className="mx-2 font-semibold text-gray-700 dark:text-gray-200"
@@ -107,7 +106,7 @@ export default function OfferByCities() {
         </div>
       </div>
 
-      <MyFooter/>
+      <MyFooter />
     </>
   );
 }

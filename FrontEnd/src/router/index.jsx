@@ -8,7 +8,7 @@ import ClientHomeLayout from "../layouts/Client/ClientHomeLayout";
 import GuestLayout from "../layouts/GuestLayout";
 import UpdateProfile from "../pages/UpdateProfile";
 import ADminDashboardLayout from "../layouts/Admin/AdminDashboardLayout";
-import AdminHome from "../pages/AdminHome";
+import AdminHome from "../pages/Admin/AdminHome";
 import FilteredOffers from "../pages/FilteredOffers";
 import Jobs from "../pages/Jobs";
 import Cities from "../pages/Cities";
@@ -22,9 +22,11 @@ import WorkerHome from "../pages/Worker/WorkerHome";
 import WorkerDashboardLayout from "../layouts/Worker/WorkerDashboardLayout";
 import ClientsProfile from "../pages/Worker/ClientsProfile";
 import HomeGuestLayout from "../layouts/HomeGuestLayout";
+import AdminJobs from "../pages/Admin/AdminJobs";
 
 export const HOME = "/";
 export const ADMINHOME = "/admin";
+export const ADMINJOBS = "/admin/jobs";
 export const WORKERHOME = "/worker";
 export const FILTEREDOFFERS = "/filteredoffers";
 export const REQUESTJOB = "/requestjob";
@@ -101,35 +103,6 @@ export const router = createBrowserRouter([
   {
     element: <ClientHomeLayout />,
     children: [
-      // {
-      //   path: HOME,
-      //   element: <Home />,
-      // },
-
-      // {
-      //   path: FILTEREDOFFERS,
-      //   element: <FilteredOffers />,
-      // },
-      // {
-      //   path: JOBS,
-      //   element: <Jobs />,
-      // },
-      // {
-      //   path: CITIES,
-      //   element: <Cities />,
-      // },
-      // {
-      //   path: WORKERS,
-      //   element: <Workers />,
-      // },
-      // {
-      //   path: OFFERBYCITIES,
-      //   element: <OfferByCities />,
-      // },
-      // {
-      //   path: OFFERBYJOBS,
-      //   element: <OfferByJobs />,
-      // },
       {
         path: WORKERPROFILE,
         element: <WorkerProfile />,
@@ -164,6 +137,10 @@ export const router = createBrowserRouter([
   {
     element: <ADminDashboardLayout />,
     children: [
+      {
+        path: ADMINJOBS,
+        element: <AdminJobs />,
+      },
       {
         path: ADMINHOME,
         element: <AdminHome />,

@@ -34,9 +34,10 @@ export function AddOffer({fetchUpdatedOffers}) {
     console.log(formData);
 
     const response = await Api.AddOffer(formData);
+    
+    fetchUpdatedOffers();
 
     onCloseModal();
-    fetchUpdatedOffers();
   };
 
   return (
@@ -82,6 +83,7 @@ export function AddOffer({fetchUpdatedOffers}) {
                     value={startDate}
                     onChange={(event) => setStartDate(event.target.value)}
                     placeholder="Select date start"
+                    min={new Date().toISOString().split('T')[0]} 
                   />
                 </div>
                 <div className="my-2">
@@ -93,6 +95,7 @@ export function AddOffer({fetchUpdatedOffers}) {
                     value={endDate}
                     onChange={(event) => setEndDate(event.target.value)}
                     placeholder="Select date end"
+                    min={new Date().toISOString().split('T')[0]} 
                   />
                 </div>
               </div>

@@ -39,10 +39,27 @@ export default function ClientHomeLayout() {
   useEffect(() => {
     if (!authenticated)
     {
-        navigate(HOME)
+        navigate(LOGIN)
+    }
+
+    if(user.role_id == 2)
+    {
+      navigate(WORKERHOME);
     }
 
   }, []);
+
+
+  // useEffect(() => {
+  //   const storedUser = window.localStorage.getItem("user");
+  //   if (!user || Object.keys(user).length === 0) {
+  //     const userObject = JSON.parse(storedUser);
+  //     setUser(userObject);
+  //   }
+
+    
+
+  // }, [user]);
 
   
 

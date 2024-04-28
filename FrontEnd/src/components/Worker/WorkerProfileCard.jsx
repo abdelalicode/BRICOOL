@@ -46,6 +46,7 @@ export default function WorkerProfileCard() {
   const getUpdatedAuthWorker = async () => {
     const response = await Api.getAuthWorker();
     setWorker(response.data);
+    setUser(response.data);
   };
 
   if (loading) {

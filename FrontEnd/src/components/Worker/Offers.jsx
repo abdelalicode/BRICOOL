@@ -7,9 +7,8 @@ import { useUserContext } from "../../context/UserContext";
 import CancelOfferModal from "./CancelOfferModal";
 import { Link } from "react-router-dom";
 
-export default function Offers() {
+export default function Offers({user}) {
   const [workerOffers, setWorkerOffers] = useState([]);
-  const { user, setUser } = useUserContext();
   
 
   useEffect(() => {
