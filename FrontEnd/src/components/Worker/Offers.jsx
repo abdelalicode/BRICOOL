@@ -7,9 +7,9 @@ import { useUserContext } from "../../context/UserContext";
 import CancelOfferModal from "./CancelOfferModal";
 import { Link } from "react-router-dom";
 
-export default function Offers() {
+export default function Offers({user}) {
   const [workerOffers, setWorkerOffers] = useState([]);
-  const { user } = useUserContext();
+  
 
   useEffect(() => {
     const fetchWorkerOffers = async () => {
@@ -24,6 +24,8 @@ export default function Offers() {
     const response = await Api.getWorkerOffers();
     setWorkerOffers(response.data);
   };
+
+ 
 
   return (
     <div>

@@ -152,8 +152,11 @@ class AuthController extends BaseController
     public function logout(Request $request)
     {
         $user = auth()->user();
-        // $user->tokens()->where('id', $user->currentAccessToken()->id)->delete();
         $user->tokens()->delete();
+      
+        Auth::guard('web')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         return $this->sendResponse([], 'User logout successfully.');
     }
 

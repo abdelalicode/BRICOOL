@@ -87,6 +87,7 @@ export default function FilteredOffers() {
                         </svg>
                       </button>
                     </Link>
+                    {offer.cancelled ? <p className="text-red-500">CANCELLED</p> : ""}
                   </div>
                 </div>
               ))

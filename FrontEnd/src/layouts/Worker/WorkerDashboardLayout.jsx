@@ -12,26 +12,29 @@ import Api from "../../services/Api";
 import { HOME } from "../../router";
 
 export default function WorkerDashboardLayout() {
-  const { user, setUser } = useUserContext();
+  const { user, setUser,  authenticated} = useUserContext();
   const location = useLocation();
-
-  const {
-    logout: contextLogout,
-  } = useUserContext();
   const navigate = useNavigate();
+
+  const { logout: contextLogout } = useUserContext();
 
   useEffect(() => {
     const storedUser = window.localStorage.getItem("user");
+
     if (storedUser || user === null) {
       const userObject = JSON.parse(storedUser);
       setUser(userObject);
+    }
+
+    console.log(user);
+    if (user && user.role_id === 3 || !authenticated) {
+      navigate(HOME);
     }
   }, []);
 
   const isClientProfileRoute = () => {
     return location.pathname.startsWith("/clienttoworker/");
   };
-
 
   const logout = async () => {
     Api.logout().then(() => {
@@ -40,6 +43,8 @@ export default function WorkerDashboardLayout() {
     });
   };
 
+    
+  
 
   return (
     <div className="bg-slate-800 h-full min-h-screen w-screen">
@@ -83,7 +88,7 @@ export default function WorkerDashboardLayout() {
             </Tabs.Item>
             <Tabs.Item title="My offers" icon={MdDashboard}>
               <div className="font-medium py-3 text-3xl text-center text-gray-50 dark:text-white"></div>
-              <Offers />
+              <Offers user={user} />
             </Tabs.Item>
             <Tabs.Item title="Profile Settings" icon={HiAdjustments}>
               <WorkerProfileCard />

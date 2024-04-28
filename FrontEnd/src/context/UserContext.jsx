@@ -39,6 +39,7 @@ export default function UserContext({children}) {
     const logout =  () => {
       setUser({});
       setAuthenticated(false);
+      window.localStorage.removeItem("user");
     }
 
     const setAuthenticated = (isAuthenticated) =>

@@ -99,6 +99,14 @@ const Api = {
     })
   },
 
+  AddJob: async (formData) => {
+    return await axiosClient.post("api/job", formData )
+  },
+
+  UpdateJob: async (updatedJob, id) => {
+    return await axiosClient.put("api/job/"+id, updatedJob )
+  },
+
   SendReview: async (stars, content, worker_id) => {
     return await axiosClient.post("api/review", {stars, content, worker_id})
   },
@@ -129,6 +137,10 @@ const Api = {
   
   getJobs: async () => {
     return await axiosClient.get("api/job");
+  },
+
+  deleteJob: async (id) => {
+    return await axiosClient.delete("api/job/"+id);
   },
 
   getCities: async () => {

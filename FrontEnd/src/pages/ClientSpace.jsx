@@ -8,12 +8,12 @@ import {
 } from "@/components/ui/popover";
 import CancelRequestModal from "../components/Home/CancelRequestModal";
 import { useNavigate } from "react-router-dom";
-import { HOME } from "../router";
+import { HOME, WORKERHOME } from "../router";
 
 export default function ClientSpace() {
   const [client, setClient] = useState({});
   const [loading, setLoading] = useState(true);
-  const {logout} = useUserContext();
+  const { logout } = useUserContext();
   const navigate = useNavigate();
 
   const [phoneformData, setphoneFormData] = useState({
@@ -33,12 +33,11 @@ export default function ClientSpace() {
     fetchClient();
   }, []);
 
-
   const updateRole = async () => {
     const response = await Api.UpdateRole(client.id);
     logout();
     navigate(HOME);
-  }
+  };
 
   const fetchUpdatedClient = async () => {
     const response = await Api.getClient();
@@ -72,6 +71,9 @@ export default function ClientSpace() {
   if (loading) {
     return <div className="mx-auto mt-24 spinner"></div>;
   }
+  if (client.role_id === 2) {
+    navigate(WORKERHOME);
+  }
 
   return (
     <div>
@@ -82,7 +84,7 @@ export default function ClientSpace() {
               <div className="bg-white rounded-lg p-6">
                 <div className="flex flex-col items-center">
                   <img
-                    src="https://randomuser.me/api/portraits/men/94.jpg"
+                    src="https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg"
                     className="w-32 h-32 bg-gray-300 rounded-full mb-4"
                     alt="profile-pic"
                   />
@@ -227,7 +229,13 @@ export default function ClientSpace() {
               <div className="bg-white rounded-lg p-6">
                 <div className="flex justify-between">
                   <h2 className="text-xl font-bold my-12 ">All My Requests</h2>
-                  <button type="button" onClick={updateRole} class="text-slate-800 h-full bg-gradient-to-br from-yellow-500 to-yellow-400 hover:bg-gradient-to-bl focus:ring-0 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Become A Worker!</button>
+                  <button
+                    type="button"
+                    onClick={updateRole}
+                    className="text-slate-800 h-full bg-gradient-to-br from-yellow-500 to-yellow-400 hover:bg-gradient-to-bl focus:ring-0 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                  >
+                    Become A Worker!
+                  </button>
                 </div>
 
                 {client.requests.length > 0 ? (
