@@ -42,7 +42,7 @@ export default function ClientsProfile() {
         <div className="space-y-4 xl:space-y-6">
           <img
             className="mx-auto rounded-full h-36 w-36"
-            src=""
+            src="https://static-00.iconduck.com/assets.00/avatar-default-icon-512x512-4mctvw9j.png"
             alt="author avatar"
           />
           <div className="space-y-2">

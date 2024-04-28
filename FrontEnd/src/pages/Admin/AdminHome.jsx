@@ -19,7 +19,7 @@ export default function AdminHome() {
           Welcome to Your Dashboard
         </h1>
         <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-6 w-full max-w-6xl">
-          {stats.map((stat, key ) => (
+          {stats?.map((stat, key ) => (
             <div className="flex items-center shadow p-4 bg-white rounded">
               <div className="flex flex-shrink-0 items-center justify-center bg-green-200 h-16 w-16 rounded">
                 <svg
