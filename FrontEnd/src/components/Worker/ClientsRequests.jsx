@@ -4,6 +4,7 @@ import Api from "../../services/Api";
 import "../../App.css";
 import Toast from '../../components/Worker/Toast';
 import { useUserContext } from './../../context/UserContext';
+import { Link } from "react-router-dom";
 
 export default function ClientsRequests() {
   const [loading, setLoading] = useState(true);
@@ -61,7 +62,9 @@ export default function ClientsRequests() {
             </div> 
           </div>
           <h5 className="text-2xl font-bold tracking-tight text-gray-50 dark:text-white capitalize">
-          {request.client.firstname} {request.client.lastname}
+          <Link to={`/clienttoworker/${request.client.id}`}>
+                          {request.client.firstname} {request.client.lastname}
+           </Link>
           </h5>
           <p className="font-normal text-gray-50 dark:text-gray-400">
           {request.description}

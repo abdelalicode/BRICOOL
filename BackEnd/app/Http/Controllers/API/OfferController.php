@@ -7,6 +7,7 @@ use App\Models\Offer;
 use App\Models\Worker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class OfferController extends Controller
 {
@@ -142,5 +143,17 @@ class OfferController extends Controller
             });
 
         return response()->json($offers);
+    }
+
+    public function getCityOfferStatistics()
+    {
+        $statistics = DB::table('cities')
+            ->join('users', 'cities.id', '=', 'users.city_id')
+            ->join('offers', 'users.id', '=', 'offers.worker_id')
+            ->select('cities.name as city_name', DB::raw('COUNT(offers.id) as offer_count'))
+            ->groupBy('cities.name')
+            ->get();
+
+        return $statistics;
     }
 }
