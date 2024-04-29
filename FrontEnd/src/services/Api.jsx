@@ -139,6 +139,10 @@ const Api = {
     return await axiosClient.get("api/job");
   },
 
+  getStats: async () => {
+    return await axiosClient.get("api/stats");
+  },
+
   deleteJob: async (id) => {
     return await axiosClient.delete("api/job/"+id);
   },

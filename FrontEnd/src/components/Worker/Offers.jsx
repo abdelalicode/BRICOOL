@@ -55,11 +55,11 @@ export default function Offers({user}) {
               </th>
               <th
                 scope="col"
-                className="px-3 py-3 bg-slate-500 dark:bg-slate-700"
+                className="px-2 py-3 bg-slate-500 dark:bg-slate-700"
               >
                 Start Date
               </th>
-              <th scope="col" className="px-3 py-3 bg-slate-600">
+              <th scope="col" className="px-2 py-3 bg-slate-600">
                 End Date
               </th>
               <th scope="col" className="px-3 py-3 bg-slate-500">
@@ -82,27 +82,27 @@ export default function Offers({user}) {
                 >
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-white whitespace-nowrap bg-slate-600 dark:text-white dark:bg-slate-800"
+                    className="px-6 py-3 font-medium text-white whitespace-nowrap bg-slate-600 dark:text-white dark:bg-slate-800"
                   >
                     {offer.title}
                   </th>
-                  <td className="px-3 py-4 bg-slate-700">
+                  <td className="px-3 py-3 bg-slate-700">
                     { offer.description.length > 50 ? offer.description.slice(0, 50) + "..." : offer.description}
                   </td>
-                  <td className="px-3 py-4 bg-slate-600 dark:bg-slate-800">
-                    <Badge className="justify-center mx-2" color="indigo">
+                  <td className="px-2 py-3 bg-slate-600 dark:bg-slate-800">
+                    <Badge className="justify-center " color="indigo">
                       {offer.start_date}
                     </Badge>
                   </td>
-                  <td className="px-3 py-4 bg-slate-700">
+                  <td className="px-1 py-3 bg-slate-700">
                     <Badge className="justify-center w-full" color="warning">
                       {offer.end_date}
                     </Badge>
                   </td>
-                  <td className="px-3 py-4 bg-slate-600 dark:bg-slate-800">
+                  <td className="px-1 py-3 bg-slate-600 dark:bg-slate-800">
                     {offer.hourly_rate}
                   </td>
-                  <td className="px-3 py-4 bg-slate-700">
+                  <td className="px-3 py-3 bg-slate-700">
                     {offer.cancelled ? (
                       "Cancelled"
                     ) : offer.client_id != null ? (

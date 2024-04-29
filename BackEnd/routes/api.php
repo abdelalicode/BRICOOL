@@ -36,7 +36,11 @@ Route::put('update', [AuthController::class, 'updateProfile'])->middleware(['aut
 
 
 //Needs ADmin Middleware
-Route::resource('job', JobController::class)->middleware('can:isAdmin');
+// Route::resource('job', JobController::class)->middleware('can:isAdmin');
+Route::get('/job', [JobController::class, 'index']);
+Route::middleware('can:isAdmin')->resource('job', JobController::class)
+    ->except(['index']);
+Route::get('stats', [OfferController::class, 'getCityOfferStatistics'])->middleware('can:isAdmin');
 
 Route::resource('request', RequestController::class);
 Route::put('takerequest', [RequestController::class, 'TakeRequest'])->middleware(['auth:sanctum','isWorker']);
